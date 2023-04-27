@@ -1,0 +1,21 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    border: 2px solid plum;
+    border-radius: 20px;
+    row-gap: 20px;
+}
+
+.form-field {
+    width: 70%;
+    border: 1px solid plum;
+    border-radius: 5px;
+}
+
+.submit-button {
+    border: 1px solid plum;
+    border-radius: 5px;
+}

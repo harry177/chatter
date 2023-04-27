@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useState } from 'react';
 import './CommonView.scss';
-import { Header } from "../Header/Header";
-import { EntryForm } from "../EntryForm/EntryForm";
-import { Footer } from "../Footer/Footer";
+import { Header } from '../Header/Header';
+import { EntryLogo } from '../EntryLogo/EntryLogo';
+import { EntryForm } from '../EntryForm/EntryForm';
+import { Footer } from '../Footer/Footer';
 
 export const CommonView = () => {
-    return (
-        <div className="general">
-        Launching Chatter !!!
-        <Header />
-        <EntryForm />
-        <Footer />
-        </div>
-    )
-}
+  const [param, setParam] = useState(false);
+
+  const handleParamChange = (param: React.SetStateAction<boolean>) => {
+    setParam(param);
+  };
+  return (
+    <div className="general">
+      <Header />
+      <div className="central">
+        <EntryLogo param={param} />
+        <EntryForm setProps={handleParamChange} />
+      </div>
+      <Footer />
+    </div>
+  );
+};
