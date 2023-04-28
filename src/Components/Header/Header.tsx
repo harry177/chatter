@@ -1,8 +1,11 @@
-import React from "react";
-import "./HeaderStyles.scss";
+import React from 'react';
+import './HeaderStyles.scss';
 
-export const Header = () => {
-    return (
-        <div className="header">Welcome to Chatter app!</div>
-    )
+interface IUser {
+  user: string;
 }
+
+export const Header: React.FC<IUser> = ({ user }) => {
+  if (user) return <div className="header">Welcome {user}</div>;
+  return <div className="header">Welcome to Chatter app!</div>;
+};
