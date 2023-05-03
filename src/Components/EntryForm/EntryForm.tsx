@@ -18,11 +18,27 @@ export const EntryForm: React.FC<IProps> = ({ setProps, setName }) => {
     setState(false);
     setProps(true);
     setName(data);
+    createUser();
   };
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     setData(event.target.value);
   };
+
+  async function createUser() {
+    const response = await fetch('http://localhost:3000/api/users', {
+      method: 'POST',
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: 'Artem',
+        age: 34,
+      }),
+    });
+    if (response.ok === true) {
+      const user = await response.json();
+      console.log(user);
+    }
+  }
 
   return (
     <form className="form" onSubmit={handleSubmit}>
