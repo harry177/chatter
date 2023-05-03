@@ -8,12 +8,11 @@ interface IChat {
 }
 
 export const Chat: React.FC<IChat> = ({ open }) => {
+  const [state, setState] = useState('');
 
-    const [state, setState] = useState('');
-
-    const handleStorageChange = (state: React.SetStateAction<string>) => {
-        setState(state);
-      };
+  const handleStorageChange = (state: React.SetStateAction<string>) => {
+    setState(state);
+  };
   if (!open) return null;
   return (
     <div className="chat">

@@ -16,8 +16,8 @@ export const CommonView = () => {
 
   const handleDataChange = (data: React.SetStateAction<string>) => {
     setData(data);
-  }
-  
+  };
+
   return (
     <div className="general">
       <Header user={data} />

@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import './ChatInput.scss';
 
 interface IStorage {
-    setStorage: React.Dispatch<React.SetStateAction<string>>;
+  setStorage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const ChatInput: React.FC<IStorage> = ({ setStorage }) => {

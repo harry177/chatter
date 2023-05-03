@@ -2,7 +2,7 @@ import React from 'react';
 import './EntryLogoStyles.scss';
 
 interface ILogo {
-    param: boolean;
+  param: boolean;
 }
 
 export const EntryLogo: React.FC<ILogo> = ({ param }) => {
