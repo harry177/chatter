@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useState } from 'react';
-import './EntryFormStyles.scss';
+import './SignUpFormStyles.scss';
 
 interface IProps {
   setProps: React.Dispatch<React.SetStateAction<boolean>>;
   setName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const EntryForm: React.FC<IProps> = ({ setProps, setName }) => {
+export const SignUpForm: React.FC<IProps> = ({ setProps, setName }) => {
   const [state, setState] = useState(true);
   const [data, setData] = useState('');
 
@@ -18,14 +18,15 @@ export const EntryForm: React.FC<IProps> = ({ setProps, setName }) => {
     setState(false);
     setProps(true);
     setName(data);
-    createUser();
+    localStorage.setItem('user', data);
+    //createUser();
   };
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     setData(event.target.value);
   };
 
-  async function createUser() {
+  /*async function createUser() {
     const response = await fetch('http://localhost:3000/api/users', {
       method: 'POST',
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
@@ -38,7 +39,7 @@ export const EntryForm: React.FC<IProps> = ({ setProps, setName }) => {
       const user = await response.json();
       console.log(user);
     }
-  }
+  }*/
 
   return (
     <form className="form" onSubmit={handleSubmit}>
@@ -53,7 +54,7 @@ export const EntryForm: React.FC<IProps> = ({ setProps, setName }) => {
       <input type="email" id="email" className="form-field email-input"></input>
       <label htmlFor="password">Password</label>
       <input type="text" id="password" className="form-field password-input"></input>
-      <label htmlFor="email">Confirmation</label>
+      <label htmlFor="confirm">Confirmation</label>
       <input type="checkbox" id="confirm" className="form-field confirm-input"></input>
       <button type="submit" className="submit-button">
         Submit
