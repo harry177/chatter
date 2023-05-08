@@ -2,12 +2,15 @@ import mongoose from 'mongoose';
 
 const dataSchema = new mongoose.Schema({
   name: {
+    type: String,
+  },
+  email: {
     required: true,
     type: String,
   },
-  age: {
+  password: {
     required: true,
-    type: Number,
+    type: String,
   },
 });
 

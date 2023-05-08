@@ -4,7 +4,7 @@ import { ChatField } from '../ChatField/ChatField';
 import { ChatInput } from '../ChatInput/ChatInput';
 
 interface IChat {
-  open: boolean;
+  open: string;
 }
 
 export const Chat: React.FC<IChat> = ({ open }) => {

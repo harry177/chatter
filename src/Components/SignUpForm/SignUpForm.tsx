@@ -2,44 +2,68 @@ import React, { ChangeEvent, useState } from 'react';
 import './SignUpFormStyles.scss';
 
 interface IProps {
-  setProps: React.Dispatch<React.SetStateAction<boolean>>;
-  setName: React.Dispatch<React.SetStateAction<string>>;
+  setProps: React.Dispatch<React.SetStateAction<string>>;
+  dispatchName: React.Dispatch<React.SetStateAction<string>>;
+  dispatchView: React.Dispatch<React.SetStateAction<boolean>>;
+  dispatchForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const SignUpForm: React.FC<IProps> = ({ setProps, setName }) => {
-  const [state, setState] = useState(true);
-  const [data, setData] = useState('');
+export const SignUpForm: React.FC<IProps> = ({
+  setProps,
+  dispatchName,
+  dispatchView,
+  dispatchForm,
+}) => {
+  const isUser: string | null = localStorage.getItem('user') || '';
 
-  if (!state) {
-    return null;
-  }
+  const [state, setState] = useState(isUser);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
 
   const handleSubmit = () => {
-    setState(false);
-    setProps(true);
-    setName(data);
-    localStorage.setItem('user', data);
-    //createUser();
+    dispatchName('artem');
+    createUser();
+    return null;
   };
 
-  const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setData(event.target.value);
+  const handleName = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+  const handleEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+  const handlePass = (event: ChangeEvent<HTMLInputElement>) => {
+    setPass(event.target.value);
   };
 
-  /*async function createUser() {
+  const handleMove = () => {
+    dispatchView(false);
+    dispatchForm(false);
+  };
+
+  async function createUser() {
     const response = await fetch('http://localhost:3000/api/users', {
       method: 'POST',
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: 'Artem',
-        age: 34,
+        name: name,
+        email: email,
+        password: pass,
       }),
     });
     if (response.ok === true) {
       const user = await response.json();
+      setName(user.name);
+      setProps(name);
       console.log(user);
+      console.log(user.email);
+      console.log(user.password);
+      console.log(response);
+      localStorage.setItem('user', 'ggg');
     }
-  }*/
+    console.log(response);
+  }
 
   return (
     <form className="form" onSubmit={handleSubmit}>
@@ -47,18 +71,29 @@ export const SignUpForm: React.FC<IProps> = ({ setProps, setName }) => {
       <input
         type="text"
         id="username"
-        onChange={handleInput}
+        onChange={handleName}
         className="form-field username-input"
       ></input>
       <label htmlFor="email">Email</label>
-      <input type="email" id="email" className="form-field email-input"></input>
+      <input
+        type="email"
+        id="email"
+        onChange={handleEmail}
+        className="form-field email-input"
+      ></input>
       <label htmlFor="password">Password</label>
-      <input type="text" id="password" className="form-field password-input"></input>
+      <input
+        type="text"
+        id="password"
+        onChange={handlePass}
+        className="form-field password-input"
+      ></input>
       <label htmlFor="confirm">Confirmation</label>
       <input type="checkbox" id="confirm" className="form-field confirm-input"></input>
       <button type="submit" className="submit-button">
         Submit
       </button>
+      <button onClick={handleMove}>Move to Login</button>
     </form>
   );
 };

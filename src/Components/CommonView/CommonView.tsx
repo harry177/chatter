@@ -8,11 +8,13 @@ import { Footer } from '../Footer/Footer';
 import { Chat } from '../Chat/Chat';
 
 export const CommonView = () => {
-  const [register, setRegister] = useState(false);
+  const [register, setRegister] = useState('');
   const [login, setLogin] = useState(false);
   const [data, setData] = useState('');
+  const [isLogin, setIsLogin] = useState(true);
+  const [form, setForm] = useState(true);
 
-  const handleSignUpChange = (param: React.SetStateAction<boolean>) => {
+  const handleSignUpChange = (param: React.SetStateAction<string>) => {
     setRegister(param);
   };
 
@@ -24,17 +26,31 @@ export const CommonView = () => {
     setLogin(param);
   };
 
-  const isUser = localStorage.getItem('user');
-  console.log(isUser);
+  const handleViewChange = (view: React.SetStateAction<boolean>) => {
+    setIsLogin(view);
+  };
+
+  const handleFormChange = (display: React.SetStateAction<boolean>) => {
+    setForm(display);
+  };
 
   return (
     <div className="general">
       <Header user={data} />
       <div className="central">
-        <EntryLogo param={register || login} />
-        {!isUser && <SignUpForm setProps={handleSignUpChange} setName={handleDataChange} />}
-        {isUser && <SignInForm setProps={handleSignInChange} />}
-        <Chat open={register || login} />
+        <EntryLogo param={data} />
+        {isLogin && !data && (
+          <SignUpForm
+            setProps={handleSignUpChange}
+            dispatchName={handleDataChange}
+            dispatchView={handleViewChange}
+            dispatchForm={handleFormChange}
+          />
+        )}
+        {!isLogin && !data && (
+          <SignInForm setProps={handleDataChange} dispatchBack={handleViewChange} />
+        )}
+        <Chat open={data} />
       </div>
       <Footer />
     </div>

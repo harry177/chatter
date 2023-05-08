@@ -4,11 +4,10 @@ import { User } from './model';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import bodyParser, { OptionsUrlencoded } from 'body-parser';
+
 dotenv.config();
 const app = express();
 const jsonParser = express.json();
-
-//app.use(express.static(__dirname + '/public'));
 
 const corsOptions = {
   origin: '*',
@@ -37,19 +36,26 @@ app.get('/api/users', async (req, res) => {
   res.send(users);
 });
 
-app.get('/api/users/:id', async (req, res) => {
-  const id = req.params.id;
-  const user = await User.findById(id);
-  if (user) res.send(user);
-  else res.sendStatus(404);
+app.get('/api/users/:email', async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const user = await User.findById(email);
+
+  if (!user) {
+    return res.status(400).json({ message: 'There is no user with such email!' });
+  } else if (user && password !== res)
+    if (user) {
+      res.send(user);
+    } else res.sendStatus(404);
 });
 
 app.post('/api/users', jsonParser, async (req, res) => {
   if (!req.body) return res.sendStatus(400);
 
-  const userName = req.body.name;
-  const userAge = req.body.age;
-  const user = new User({ name: userName, age: userAge });
+  const name = req.body.name;
+  const email = req.body.email;
+  const password = req.body.password;
+  const user = new User({ name: name, email: email, password: password });
   await user.save();
   res.send(user);
 });
