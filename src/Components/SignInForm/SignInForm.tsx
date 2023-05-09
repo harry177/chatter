@@ -7,15 +7,10 @@ interface IProps {
 }
 
 export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
-  const isUser: string | null = localStorage.getItem('user') || '';
-
-  const [state, setState] = useState(isUser);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
-  const [back, setBack] = useState(true);
 
   const handleSubmit = () => {
-    setState('Artem');
     setProps('artem');
     checkUser();
   };
@@ -28,7 +23,6 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
   };
 
   const handleBack = () => {
-    setBack(false);
     dispatchBack(true);
   };
 

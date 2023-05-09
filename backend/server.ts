@@ -55,6 +55,14 @@ app.post('/api/users', jsonParser, async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
+  const tryEmail = await User.findOne({ email });
+  if (tryEmail) {
+    return res.status(400).json({ message: 'User with such email is aready existed' });
+  }
+  const tryName = await User.findOne({ name });
+  if (tryName) {
+    return res.status(400).json({ message: 'User with such name is aready existed' });
+  }
   const user = new User({ name: name, email: email, password: password });
   await user.save();
   res.send(user);

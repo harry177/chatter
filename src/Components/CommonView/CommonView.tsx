@@ -8,30 +8,15 @@ import { Footer } from '../Footer/Footer';
 import { Chat } from '../Chat/Chat';
 
 export const CommonView = () => {
-  const [register, setRegister] = useState('');
-  const [login, setLogin] = useState(false);
   const [data, setData] = useState('');
   const [isLogin, setIsLogin] = useState(true);
-  const [form, setForm] = useState(true);
-
-  const handleSignUpChange = (param: React.SetStateAction<string>) => {
-    setRegister(param);
-  };
 
   const handleDataChange = (data: React.SetStateAction<string>) => {
     setData(data);
   };
 
-  const handleSignInChange = (param: React.SetStateAction<boolean>) => {
-    setLogin(param);
-  };
-
   const handleViewChange = (view: React.SetStateAction<boolean>) => {
     setIsLogin(view);
-  };
-
-  const handleFormChange = (display: React.SetStateAction<boolean>) => {
-    setForm(display);
   };
 
   return (
@@ -40,12 +25,7 @@ export const CommonView = () => {
       <div className="central">
         <EntryLogo param={data} />
         {isLogin && !data && (
-          <SignUpForm
-            setProps={handleSignUpChange}
-            dispatchName={handleDataChange}
-            dispatchView={handleViewChange}
-            dispatchForm={handleFormChange}
-          />
+          <SignUpForm dispatchName={handleDataChange} dispatchView={handleViewChange} />
         )}
         {!isLogin && !data && (
           <SignInForm setProps={handleDataChange} dispatchBack={handleViewChange} />

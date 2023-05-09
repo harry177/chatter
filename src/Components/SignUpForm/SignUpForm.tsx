@@ -2,21 +2,11 @@ import React, { ChangeEvent, useState } from 'react';
 import './SignUpFormStyles.scss';
 
 interface IProps {
-  setProps: React.Dispatch<React.SetStateAction<string>>;
   dispatchName: React.Dispatch<React.SetStateAction<string>>;
   dispatchView: React.Dispatch<React.SetStateAction<boolean>>;
-  dispatchForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const SignUpForm: React.FC<IProps> = ({
-  setProps,
-  dispatchName,
-  dispatchView,
-  dispatchForm,
-}) => {
-  const isUser: string | null = localStorage.getItem('user') || '';
-
-  const [state, setState] = useState(isUser);
+export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -39,7 +29,6 @@ export const SignUpForm: React.FC<IProps> = ({
 
   const handleMove = () => {
     dispatchView(false);
-    dispatchForm(false);
   };
 
   async function createUser() {
@@ -55,7 +44,6 @@ export const SignUpForm: React.FC<IProps> = ({
     if (response.ok === true) {
       const user = await response.json();
       setName(user.name);
-      setProps(name);
       console.log(user);
       console.log(user.email);
       console.log(user.password);
