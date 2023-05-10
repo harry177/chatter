@@ -7,7 +7,6 @@ import bodyParser, { OptionsUrlencoded } from 'body-parser';
 
 dotenv.config();
 const app = express();
-const jsonParser = express.json();
 
 const corsOptions = {
   origin: '*',
@@ -20,6 +19,8 @@ const corsOptions = {
 app.use(bodyParser.urlencoded({ extended: true } as OptionsUrlencoded | undefined));
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
+
+//const urlencodedParser = express.urlencoded({ extended: false } as OptionsUrlencoded | undefined);
 
 async function main() {
   try {
@@ -36,36 +37,38 @@ app.get('/api/users', async (req, res) => {
   res.send(users);
 });
 
-app.get('/api/users/:email', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  const user = await User.findById(email);
-
+  const user = await User.findOne({ email });
+  console.log(user);
+  console.log(req.body);
   if (!user) {
-    return res.status(400).json({ message: 'There is no user with such email!' });
-  } else if (user && password !== res)
-    if (user) {
-      res.send(user);
-    } else res.sendStatus(404);
+    return res.json({ message: 'There is no user with such email!' });
+  }
+  if (user && user.password !== password) {
+    return res.json({ message: 'Your password is incorrect' });
+  }
+  if (user && user.password === password) {
+    return res.json({ name: user.name });
+  }
 });
 
-app.post('/api/users', jsonParser, async (req, res) => {
-  if (!req.body) return res.sendStatus(400);
+app.post('/api/register', async (req, res) => {
+  if (!req.body) res.sendStatus(400);
 
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
   const tryEmail = await User.findOne({ email });
   if (tryEmail) {
-    return res.status(400).json({ message: 'User with such email is aready existed' });
+    return res.json({ message: 'User with such email is aready existed' });
   }
-  const tryName = await User.findOne({ name });
-  if (tryName) {
-    return res.status(400).json({ message: 'User with such name is aready existed' });
+  if (!tryEmail) {
+    const user = new User({ name: name, email: email, password: password });
+    user.save();
+    res.send(user);
   }
-  const user = new User({ name: name, email: email, password: password });
-  await user.save();
-  res.send(user);
 });
 
 main();

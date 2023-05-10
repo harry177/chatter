@@ -10,8 +10,11 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
-  const handleSubmit = () => {
-    setProps('artem');
+  const [isEmail, setIsEmail] = useState('');
+  const [isPassword, setIsPassword] = useState('');
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
     checkUser();
   };
 
@@ -26,20 +29,38 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
     dispatchBack(true);
   };
 
-  async function checkUser() {
-    const response = await fetch('http://localhost:3000/api/users:email', {
-      method: 'GET',
+  const checkUser = async () => {
+    const response = await fetch('http://localhost:3000/api/login', {
+      method: 'POST',
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: email,
         password: pass,
       }),
     });
-    if (response.ok === true) {
-      const user = await response.json();
-      console.log(user);
+
+    const user = await response.json();
+    if (user.message === 'There is no user with such email!') {
+      setIsEmail(user.message);
+    } else if (user.message === 'Your password is incorrect') {
+      setIsPassword(user.message);
+    } else {
+      setProps(user.name);
     }
-  }
+  };
+
+  /*const getFetch = async (event: React.MouseEvent) => {
+    event.preventDefault();
+    const response = await fetch('http://localhost:3000/api/users', {
+      method: 'GET',
+      headers: { Accept: 'application/json' },
+    });
+    if (response.ok === true) {
+      const users = await response.json();
+      setDavay(JSON.stringify(users));
+      console.log(users);
+    }
+  };*/
 
   return (
     <form className="form" onSubmit={handleSubmit}>
@@ -50,6 +71,7 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
         onChange={handleEmail}
         className="form-field email-input"
       ></input>
+      {isEmail}
       <label htmlFor="password">Password</label>
       <input
         type="text"
@@ -57,6 +79,7 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
         onChange={handlePass}
         className="form-field password-input"
       ></input>
+      {isPassword}
       <button type="submit" className="submit-button">
         Submit
       </button>

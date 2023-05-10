@@ -11,10 +11,13 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
-  const handleSubmit = () => {
-    dispatchName('artem');
+  const [isEmail, setIsEmail] = useState('');
+  //const [isPassword, setIsPassword] = useState('');
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
     createUser();
-    return null;
+    //return null;
   };
 
   const handleName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,8 +34,8 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
     dispatchView(false);
   };
 
-  async function createUser() {
-    const response = await fetch('http://localhost:3000/api/users', {
+  const createUser = async () => {
+    const response = await fetch('http://localhost:3000/api/register', {
       method: 'POST',
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -41,17 +44,14 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
         password: pass,
       }),
     });
-    if (response.ok === true) {
-      const user = await response.json();
-      setName(user.name);
-      console.log(user);
-      console.log(user.email);
-      console.log(user.password);
-      console.log(response);
-      localStorage.setItem('user', 'ggg');
+    const user = await response.json();
+    if (user.message === 'User with such email is aready existed') {
+      setIsEmail(user.message);
     }
-    console.log(response);
-  }
+    if (user.name) {
+      dispatchName(user.name);
+    }
+  };
 
   return (
     <form className="form" onSubmit={handleSubmit}>
@@ -69,6 +69,7 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
         onChange={handleEmail}
         className="form-field email-input"
       ></input>
+      {isEmail}
       <label htmlFor="password">Password</label>
       <input
         type="text"
