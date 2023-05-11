@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import './SignUpFormStyles.scss';
 
 interface IProps {
@@ -14,8 +15,8 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
   const [isEmail, setIsEmail] = useState('');
   //const [isPassword, setIsPassword] = useState('');
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleForm: SubmitHandler<FieldValues> = () => {
+    //event.preventDefault();
     createUser();
     //return null;
   };
@@ -53,30 +54,60 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
     }
   };
 
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit(handleForm)}>
       <label htmlFor="username">Username</label>
       <input
         type="text"
         id="username"
+        {...register('nameLabel', { required: true, minLength: 3 })}
         onChange={handleName}
         className="form-field username-input"
       ></input>
+      <div>
+        {errors?.nameLabel?.type === 'required' && (
+          <p>The field cannot be empty. Please, enter your name</p>
+        )}
+        {errors?.nameLabel?.type === 'minLength' && (
+          <p>The length of name must be at least 3 characters long. Try again</p>
+        )}
+      </div>
       <label htmlFor="email">Email</label>
       <input
         type="email"
         id="email"
+        {...register('emailLabel', { required: true })}
         onChange={handleEmail}
         className="form-field email-input"
       ></input>
+      <div>
+        {errors?.emailLabel?.type === 'required' && (
+          <p>The field cannot be empty. Please, enter your name</p>
+        )}
+      </div>
       {isEmail}
       <label htmlFor="password">Password</label>
       <input
         type="text"
         id="password"
+        {...register('passLabel', { required: true, minLength: 5 })}
         onChange={handlePass}
         className="form-field password-input"
       ></input>
+      <div>
+        {errors?.passLabel?.type === 'required' && (
+          <p>The field cannot be empty. Please, enter your name</p>
+        )}
+        {errors?.passLabel?.type === 'minLength' && (
+          <p>The length of name must be at least 5 characters long. Try again</p>
+        )}
+      </div>
       <label htmlFor="confirm">Confirmation</label>
       <input type="checkbox" id="confirm" className="form-field confirm-input"></input>
       <button type="submit" className="submit-button">
