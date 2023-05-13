@@ -80,10 +80,12 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
         className="form-field password-input"
       ></input>
       {isPassword}
-      <button type="submit" className="submit-button">
-        Submit
-      </button>
-      <button onClick={handleBack}>Move to SignUp</button>
+      <div>
+        <button type="submit" className="submit-button">
+          Submit
+        </button>
+        <button onClick={handleBack}>Move to SignUp</button>
+      </div>
     </form>
   );
 };

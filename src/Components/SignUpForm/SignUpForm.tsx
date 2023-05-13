@@ -11,14 +11,12 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
+  const [confirm, setConfirm] = useState(false);
 
   const [isEmail, setIsEmail] = useState('');
-  //const [isPassword, setIsPassword] = useState('');
 
   const handleForm: SubmitHandler<FieldValues> = () => {
-    //event.preventDefault();
     createUser();
-    //return null;
   };
 
   const handleName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +27,10 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
   };
   const handlePass = (event: ChangeEvent<HTMLInputElement>) => {
     setPass(event.target.value);
+  };
+
+  const handleConfirm = (event: ChangeEvent<HTMLInputElement>) => {
+    setConfirm(event.target.checked);
   };
 
   const handleMove = () => {
@@ -70,14 +72,12 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
         onChange={handleName}
         className="form-field username-input"
       ></input>
-      <div>
-        {errors?.nameLabel?.type === 'required' && (
-          <p>The field cannot be empty. Please, enter your name</p>
-        )}
-        {errors?.nameLabel?.type === 'minLength' && (
-          <p>The length of name must be at least 3 characters long. Try again</p>
-        )}
-      </div>
+      {errors?.nameLabel?.type === 'required' && (
+        <span>The field cannot be empty. Please, enter your name</span>
+      )}
+      {errors?.nameLabel?.type === 'minLength' && (
+        <span>The length of name must be at least 3 characters long. Try again</span>
+      )}
       <label htmlFor="email">Email</label>
       <input
         type="email"
@@ -86,11 +86,9 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
         onChange={handleEmail}
         className="form-field email-input"
       ></input>
-      <div>
-        {errors?.emailLabel?.type === 'required' && (
-          <p>The field cannot be empty. Please, enter your name</p>
-        )}
-      </div>
+      {errors?.emailLabel?.type === 'required' && (
+        <span>The field cannot be empty. Please, enter your email</span>
+      )}
       {isEmail}
       <label htmlFor="password">Password</label>
       <input
@@ -100,20 +98,29 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
         onChange={handlePass}
         className="form-field password-input"
       ></input>
-      <div>
-        {errors?.passLabel?.type === 'required' && (
-          <p>The field cannot be empty. Please, enter your name</p>
-        )}
-        {errors?.passLabel?.type === 'minLength' && (
-          <p>The length of name must be at least 5 characters long. Try again</p>
-        )}
-      </div>
+      {errors?.passLabel?.type === 'required' && (
+        <span>The field cannot be empty. Please, enter your name</span>
+      )}
+      {errors?.passLabel?.type === 'minLength' && (
+        <span>The length of name must be at least 5 characters long. Try again</span>
+      )}
       <label htmlFor="confirm">Confirmation</label>
-      <input type="checkbox" id="confirm" className="form-field confirm-input"></input>
-      <button type="submit" className="submit-button">
-        Submit
-      </button>
-      <button onClick={handleMove}>Move to Login</button>
+      <input
+        type="checkbox"
+        id="confirm"
+        {...register('confirmLabel', { required: true })}
+        onChange={handleConfirm}
+        className={confirm ? 'form-field confirm-active' : 'form-field confirm-input'}
+      ></input>
+      {errors?.confirmLabel?.type === 'required' && (
+        <span>The field cannot be empty. To enter, you should read and approve conditions</span>
+      )}
+      <div>
+        <button type="submit" className="submit-button">
+          Submit
+        </button>
+        <button onClick={handleMove}>Move to Login</button>
+      </div>
     </form>
   );
 };

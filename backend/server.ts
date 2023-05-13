@@ -41,8 +41,6 @@ app.post('/api/login', async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const user = await User.findOne({ email });
-  console.log(user);
-  console.log(req.body);
   if (!user) {
     return res.json({ message: 'There is no user with such email!' });
   }
