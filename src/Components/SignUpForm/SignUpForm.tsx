@@ -51,8 +51,9 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
     if (user.message === 'User with such email is aready existed') {
       setIsEmail(user.message);
     }
-    if (user.name) {
-      dispatchName(user.name);
+    if (user.user) {
+      dispatchName(user.user.name);
+      console.log(user.token);
     }
   };
 
