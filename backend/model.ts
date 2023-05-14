@@ -12,6 +12,9 @@ const dataSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
+  messages: {
+    type: Array,
+  },
 });
 
 export const User = mongoose.model('User', dataSchema);

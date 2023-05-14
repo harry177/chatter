@@ -27,20 +27,35 @@ export const ChatInput: React.FC<IStorage> = ({ setStorage }) => {
     }
   }
 
+  const sendMessage = async () => {
+    const response = await fetch('http://localhost:3000/api/savemess', {
+      method: 'POST',
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: localStorage.getItem('user'),
+        message: state,
+      }),
+    });
+    const user = await response.json();
+    if (user) {
+      console.log(user);
+    }
+  };
+
   const handleClick = () => {
     initialStack.push(state);
     localStorage.setItem('stack', JSON.stringify(initialStack));
     setStorage(state);
-    getUsers();
+    sendMessage();
   };
 
   return (
-    <>
+    <div className="chat-input">
       <input type="text" onChange={handleInput}></input>
       <button type="submit" onClick={handleClick}>
         Send
       </button>
       <div>{users} - aha</div>
-    </>
+    </div>
   );
 };

@@ -8,7 +8,7 @@ interface IChatField {
 export const ChatField: React.FC<IChatField> = ({ storage }) => {
   const have = JSON.parse(localStorage.getItem('stack') || '[]');
   return (
-    <div>
+    <div className="chat-field">
       {(storage || !storage) &&
         have.map((message: string) => {
           return <p key={have.indexOf(message)}>{message}</p>;
