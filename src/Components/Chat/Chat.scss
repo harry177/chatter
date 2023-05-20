@@ -1,6 +1,10 @@
 .chat {
     width: 50%;
     height: 70%;
-    border-radius: 10%;
+    border-radius: 10px;
     background-color: lightpink;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
