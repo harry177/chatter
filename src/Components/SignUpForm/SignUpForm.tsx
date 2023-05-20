@@ -53,7 +53,7 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
     }
     if (user.user) {
       dispatchName(user.user.name);
-      localStorage.setItem('user', user.name);
+      localStorage.setItem('user', user.user.name);
       console.log(user.token);
     }
   };

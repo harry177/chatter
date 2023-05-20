@@ -52,10 +52,3 @@ router.post('/register', async (req, res) => {
     res.send({ user: user, token: token });
   }
 });
-
-/*router.post('/savemess', async (req, res) => {
-  const name = req.body.name;
-  const mess = req.body.message;
-  const updateMess = await User.updateOne({ name: name }, { $push: { messages: mess } });
-  res.send(updateMess);
-});*/

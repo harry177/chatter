@@ -5,14 +5,10 @@ import { User } from './model';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import bodyParser, { OptionsUrlencoded } from 'body-parser';
-import { createServer } from 'http';
 import { Server } from 'socket.io';
 
 dotenv.config();
 const app = express();
-
-//const httpServer = createServer(app);
-//const io = new Server(httpServer);
 
 const PORT = process.env.PORT || 3000;
 
@@ -47,8 +43,9 @@ io.on('connection', (socket) => {
 
     const name = data.user;
     const mess = data.message;
-    const updateMess = await User.updateOne({ name: name }, { $push: { messages: mess } });
-    io.emit('message stack', updateMess);
+    await User.updateOne({ name: name }, { $push: { messages: mess } });
+    const user = await User.findOne({ name });
+    io.emit('message stack', user?.messages);
   });
   socket.on('disconnect', () => {
     console.log('🔥: A user disconnected');
