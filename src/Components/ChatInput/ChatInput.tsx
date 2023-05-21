@@ -14,8 +14,10 @@ export const ChatInput: React.FC<IStorage> = ({ setStorage }) => {
   };
 
   const handleClick = () => {
-    setStorage(state);
-    setState('');
+    if (state) {
+      setStorage(state);
+      setState('');
+    }
   };
 
   return (

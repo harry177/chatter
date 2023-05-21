@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Chat.scss';
 import { ChatField } from '../ChatField/ChatField';
 import { ChatInput } from '../ChatInput/ChatInput';
+import { ChatUsers } from '../ChatUsers/ChatUsers';
 
 interface IChat {
   open: string;
@@ -16,8 +17,11 @@ export const Chat: React.FC<IChat> = ({ open }) => {
   if (!open) return null;
   return (
     <div className="chat">
-      <ChatField storage={state} />
-      <ChatInput setStorage={handleStorageChange} />
+      <ChatUsers user={state} />
+      <div className="right-chat__block">
+        <ChatField storage={state} />
+        <ChatInput setStorage={handleStorageChange} />
+      </div>
     </div>
   );
 };

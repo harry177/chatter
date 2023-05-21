@@ -3,4 +3,13 @@
   height: 80%;
   border: black 1px solid;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.chat-item {
+  padding: 10px;
 }

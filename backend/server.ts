@@ -43,7 +43,11 @@ io.on('connection', (socket) => {
 
     const name = data.user;
     const mess = data.message;
-    await User.updateOne({ name: name }, { $push: { messages: mess } });
+
+    if (data.message) {
+      await User.updateOne({ name: name }, { $push: { messages: mess } });
+    }
+
     const user = await User.findOne({ name });
     io.emit('message stack', user?.messages);
   });

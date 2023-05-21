@@ -1,8 +1,16 @@
 .chat {
-    width: 50%;
+    width: 80%;
     height: 70%;
     border-radius: 10px;
     background-color: lightpink;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.right-chat__block {
+    width: 74%;
+    height: 95%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;

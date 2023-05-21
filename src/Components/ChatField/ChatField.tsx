@@ -26,9 +26,13 @@ export const ChatField: React.FC<IChatField> = ({ storage }) => {
 
   return (
     <div className="chat-field">
-      {(storage || !storage) &&
+      {storage &&
         state.map((message) => {
-          return <p key={state.indexOf(message)}>{message}</p>;
+          return (
+            <p key={state.indexOf(message)} className="chat-item">
+              {message}
+            </p>
+          );
         })}
     </div>
   );
