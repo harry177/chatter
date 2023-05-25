@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import './SignInFormStyles.scss';
+import './SignInForm.styles.scss';
 
 interface IProps {
   setProps: React.Dispatch<React.SetStateAction<string>>;

@@ -1,5 +1,5 @@
 import React from 'react';
-import './HeaderStyles.scss';
+import './Header.styles.scss';
 
 interface IUser {
   user: string;

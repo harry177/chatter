@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import './SignUpFormStyles.scss';
+import './SignUpForm.styles.scss';
 
 interface IProps {
   dispatchName: React.Dispatch<React.SetStateAction<string>>;

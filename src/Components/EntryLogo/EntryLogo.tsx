@@ -1,5 +1,5 @@
 import React from 'react';
-import './EntryLogoStyles.scss';
+import './EntryLogo.styles.scss';
 
 interface ILogo {
   param: string;

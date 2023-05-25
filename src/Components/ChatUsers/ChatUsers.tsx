@@ -1,5 +1,5 @@
 import React from 'react';
-import './ChatUsersStyles.scss';
+import './ChatUsers.styles.scss';
 
 interface IUser {
   user: string;

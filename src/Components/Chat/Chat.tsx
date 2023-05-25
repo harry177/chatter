@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Chat.scss';
+import './Chat.styles.scss';
 import { ChatField } from '../ChatField/ChatField';
 import { ChatInput } from '../ChatInput/ChatInput';
 import { ChatUsers } from '../ChatUsers/ChatUsers';

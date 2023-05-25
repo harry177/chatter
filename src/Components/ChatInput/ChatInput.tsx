@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import './ChatInput.scss';
+import './ChatInput.styles.scss';
 
 interface IStorage {
   setStorage: React.Dispatch<React.SetStateAction<string>>;

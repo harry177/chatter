@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CommonView.scss';
+import './CommonView.styles.scss';
 import { Header } from '../Header/Header';
 import { EntryLogo } from '../EntryLogo/EntryLogo';
 import { SignUpForm } from '../SignUpForm/SignUpForm';

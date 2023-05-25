@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './ChatField.scss';
+import './ChatField.styles.scss';
 import { io } from 'socket.io-client';
 
 interface IChatField {
