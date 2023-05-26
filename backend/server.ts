@@ -51,6 +51,10 @@ io.on('connection', (socket) => {
     const user = await User.findOne({ name });
     io.emit('message stack', user?.messages);
   });
+  socket.on('get users', async () => {
+    const users = await User.find({});
+    io.emit('all users', users);
+  });
   socket.on('disconnect', () => {
     console.log('🔥: A user disconnected');
   });

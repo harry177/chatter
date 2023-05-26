@@ -17,7 +17,7 @@ export const Chat: React.FC<IChat> = ({ open }) => {
   if (!open) return null;
   return (
     <div className="chat">
-      <ChatUsers user={state} />
+      <ChatUsers />
       <div className="right-chat__block">
         <ChatField storage={state} />
         <ChatInput setStorage={handleStorageChange} />

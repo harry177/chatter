@@ -51,19 +51,6 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
     }
   };
 
-  /*const getFetch = async (event: React.MouseEvent) => {
-    event.preventDefault();
-    const response = await fetch('http://localhost:3000/api/users', {
-      method: 'GET',
-      headers: { Accept: 'application/json' },
-    });
-    if (response.ok === true) {
-      const users = await response.json();
-      setDavay(JSON.stringify(users));
-      console.log(users);
-    }
-  };*/
-
   return (
     <form className="form" onSubmit={handleSubmit}>
       <label htmlFor="email">Email</label>
