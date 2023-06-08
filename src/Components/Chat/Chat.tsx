@@ -10,16 +10,20 @@ interface IChat {
 
 export const Chat: React.FC<IChat> = ({ open }) => {
   const [state, setState] = useState('');
+  const [chat, setChat] = useState('');
 
   const handleStorageChange = (state: React.SetStateAction<string>) => {
     setState(state);
   };
+  const handleChatState = (chat: React.SetStateAction<string>) => {
+    setChat(chat);
+  };
   if (!open) return null;
   return (
     <div className="chat">
-      <ChatUsers />
+      <ChatUsers dispatchChatState={handleChatState} />
       <div className="right-chat__block">
-        <ChatField storage={state} />
+        <ChatField storage={state} chatSpeaker={chat} />
         <ChatInput setStorage={handleStorageChange} />
       </div>
     </div>

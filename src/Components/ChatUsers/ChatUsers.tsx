@@ -7,9 +7,13 @@ interface IUsers {
   name: string;
 }
 
+interface IChatUsers {
+  dispatchChatState: React.Dispatch<React.SetStateAction<string>>;
+}
+
 const socket = io('http://localhost:3000');
 
-export const ChatUsers = () => {
+export const ChatUsers: React.FC<IChatUsers> = ({ dispatchChatState }) => {
   const cool = localStorage.getItem('user');
 
   const [allUsers, setAllUsers] = useState<IUsers[]>([]);
@@ -29,7 +33,13 @@ export const ChatUsers = () => {
     <div className="chat-users">
       {allUsers &&
         allUsers.map((user) => {
-          return <UserItem key={allUsers.indexOf(user)} userName={user.name} />;
+          return (
+            <UserItem
+              key={allUsers.indexOf(user)}
+              userName={user.name}
+              dispatchChat={dispatchChatState}
+            />
+          );
         })}
     </div>
   );

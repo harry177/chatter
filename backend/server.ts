@@ -42,14 +42,41 @@ io.on('connection', (socket) => {
     console.log('Client says', data.message);
 
     const name = data.user;
+    const speaker = data.speaker;
     const mess = data.message;
 
     if (data.message) {
-      await User.updateOne({ name: name }, { $push: { messages: mess } });
+      const existedChat = await User.findOne({ name, 'chats.user': speaker });
+      console.log(existedChat);
+      existedChat
+        ? (await User.updateOne(
+            { name },
+            { $push: { 'chats.$[t].messages': mess } },
+            { arrayFilters: [{ 't.user': speaker }] }
+          )) &&
+          (await User.updateOne(
+            { name: speaker },
+            { $push: { 'chats.$[t].messages': mess } },
+            { arrayFilters: [{ 't.user': name }] }
+          ))
+        : (await User.updateOne(
+            { name },
+            { $push: { chats: { user: speaker, messages: mess } } }
+          )) &&
+          (await User.updateOne(
+            { name: speaker },
+            { $push: { chats: { user: name, messages: mess } } }
+          ));
+      //console.log(existedChat);
+      //await User.updateOne({ name: name }, { $push: { messages: mess } });
     }
 
     const user = await User.findOne({ name });
-    io.emit('message stack', user?.messages);
+    io.emit(
+      'message stack',
+      user?.chats?.find((item: { user?: string | undefined }) => item.user === speaker)?.messages ||
+        []
+    );
   });
   socket.on('get users', async () => {
     const users = await User.find({});

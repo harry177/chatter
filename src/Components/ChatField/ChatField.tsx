@@ -4,11 +4,12 @@ import { io } from 'socket.io-client';
 
 interface IChatField {
   storage: string;
+  chatSpeaker: string;
 }
 
 const socket = io('http://localhost:3000');
 
-export const ChatField: React.FC<IChatField> = ({ storage }) => {
+export const ChatField: React.FC<IChatField> = ({ storage, chatSpeaker }) => {
   const user = localStorage.getItem('user');
 
   const [state, setState] = useState([]);
@@ -16,13 +17,16 @@ export const ChatField: React.FC<IChatField> = ({ storage }) => {
   useEffect(() => {
     socket.emit('chat message', {
       user,
+      speaker: chatSpeaker,
       message: storage,
     });
     socket.on('message stack', (msg) => {
       console.log(msg);
       setState(msg);
     });
-  }, [storage, user]);
+  }, [storage, chatSpeaker, user]);
+
+  console.log(chatSpeaker);
 
   return (
     <div className="chat-field">
