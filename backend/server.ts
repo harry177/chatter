@@ -47,25 +47,24 @@ io.on('connection', (socket) => {
 
     if (data.message) {
       const existedChat = await User.findOne({ name, 'chats.user': speaker });
-      console.log(existedChat);
       existedChat
         ? (await User.updateOne(
             { name },
-            { $push: { 'chats.$[t].messages': mess } },
+            { $push: { 'chats.$[t].messages': { hero: name, comment: mess } } },
             { arrayFilters: [{ 't.user': speaker }] }
           )) &&
           (await User.updateOne(
             { name: speaker },
-            { $push: { 'chats.$[t].messages': mess } },
+            { $push: { 'chats.$[t].messages': { hero: name, comment: mess } } },
             { arrayFilters: [{ 't.user': name }] }
           ))
         : (await User.updateOne(
             { name },
-            { $push: { chats: { user: speaker, messages: mess } } }
+            { $push: { chats: { user: speaker, messages: { hero: name, comment: mess } } } }
           )) &&
           (await User.updateOne(
             { name: speaker },
-            { $push: { chats: { user: name, messages: mess } } }
+            { $push: { chats: { user: name, messages: { hero: name, comment: mess } } } }
           ));
       //console.log(existedChat);
       //await User.updateOne({ name: name }, { $push: { messages: mess } });

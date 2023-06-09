@@ -7,12 +7,17 @@ interface IChatField {
   chatSpeaker: string;
 }
 
+interface IMessage {
+  hero: string;
+  comment: string;
+}
+
 const socket = io('http://localhost:3000');
 
 export const ChatField: React.FC<IChatField> = ({ storage, chatSpeaker }) => {
   const user = localStorage.getItem('user');
 
-  const [state, setState] = useState([]);
+  const [state, setState] = useState<IMessage[]>([]);
 
   useEffect(() => {
     socket.emit('chat message', {
@@ -30,12 +35,15 @@ export const ChatField: React.FC<IChatField> = ({ storage, chatSpeaker }) => {
 
   return (
     <div className="chat-field">
-      {storage &&
+      {(storage || chatSpeaker) &&
         state.map((message) => {
           return (
-            <p key={state.indexOf(message)} className="chat-item">
-              {message}
-            </p>
+            <div
+              key={state.indexOf(message)}
+              className={message.hero === user ? 'chat-item__hero' : 'chat-item__npc'}
+            >
+              {message.comment}
+            </div>
           );
         })}
     </div>

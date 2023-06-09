@@ -13,7 +13,7 @@ const dataSchema = new mongoose.Schema({
     type: String,
   },
   chats: {
-    type: [{ user: String, messages: Array }],
+    type: [{ user: String, messages: [{ hero: String, comment: String }] }],
   },
 });
 

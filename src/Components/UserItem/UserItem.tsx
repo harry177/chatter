@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './UserItem.style.scss';
 
 interface IUserItem {
@@ -7,11 +7,9 @@ interface IUserItem {
 }
 
 export const UserItem: React.FC<IUserItem> = ({ userName, dispatchChat }) => {
-  const [state, setState] = useState('');
   const selectChat = () => {
     sessionStorage.setItem('selectedChat', userName);
-    setState(userName);
-    dispatchChat(state);
+    dispatchChat(userName);
   };
 
   return (
