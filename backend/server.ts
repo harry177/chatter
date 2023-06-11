@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import express from 'express';
+import path from 'path';
 import { router } from './router';
 import { User } from './model';
 import dotenv from 'dotenv';
@@ -26,7 +27,18 @@ app.use(cors(corsOptions));
 
 app.use('/api', router);
 
-await mongoose.connect(process.env.DATABASE_URL || '');
+const __dirname1 = path.resolve();
+
+mongoose.connect(process.env.DATABASE_URL || '');
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname1, '/frontend/dist')));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname1, 'frontend', 'dist', 'index.html'))
+  );
+}
+
 const superServer = app.listen(PORT);
 const io = new Server(superServer, {
   cors: {
