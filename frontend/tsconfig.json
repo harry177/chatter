@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": ["dom", "esnext", "dom.iterable"],
     "jsx": "react",
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true,

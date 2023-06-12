@@ -2,9 +2,8 @@
   "name": "chatter",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "start": "node ./backend/dist/server.cjs",
+    "start": "node ./backend/dist/server.js",
     "postinstall": "tsc",
     "heroku-postbuild": "cd frontend && npm install && npm run build"
   },

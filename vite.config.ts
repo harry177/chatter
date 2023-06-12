@@ -12,4 +12,9 @@ export default defineConfig({
       input: './frontend/dist/index.html',
     },
   },
+  server: {
+    proxy: {
+      '/api/': 'http://localhost:3000',
+    },
+  },
 });

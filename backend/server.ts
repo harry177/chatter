@@ -11,7 +11,7 @@ import { Server } from 'socket.io';
 dotenv.config();
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 const corsOptions = {
   origin: '*',
@@ -42,10 +42,10 @@ if (process.env.NODE_ENV === 'production') {
 const superServer = app.listen(PORT);
 const io = new Server(superServer, {
   cors: {
-    origin: 'http://localhost:5173',
+    origin: 'http://localhost:3000',
   },
 });
-console.log(`Sever started on port ${PORT}`);
+console.log(`Server started on port ${PORT}`);
 
 io.on('connection', (socket) => {
   console.log('socket connect successful');
