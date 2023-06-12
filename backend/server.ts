@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === 'production') {
 const superServer = app.listen(PORT);
 const io = new Server(superServer, {
   cors: {
-    origin: '*',
+    origin: ['http://localhost:3000', 'https://chatter-project.herokuapp.com/'],
   },
 });
 console.log(`Server started on port ${PORT}`);
