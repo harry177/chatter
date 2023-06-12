@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/socket.io/': {
-        target: 'http://localhost:3000',
+        target: process.env.API_PROXY_URL,
         changeOrigin: true,
         secure: false,
         ws: true,
