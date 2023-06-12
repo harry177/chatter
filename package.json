@@ -2,6 +2,9 @@
   "name": "chatter",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "start": "node ./backend/dist/server.js",
     "postinstall": "tsc",
