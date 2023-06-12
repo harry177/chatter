@@ -38,7 +38,7 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
   };
 
   const createUser = async () => {
-    const response = await fetch('/api/register', {
+    const response = await fetch('/register', {
       method: 'POST',
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
