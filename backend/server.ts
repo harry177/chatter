@@ -40,7 +40,7 @@ app.get('*', (req, res) =>
 const superServer = app.listen(PORT);
 const io = new Server(superServer, {
   cors: {
-    origin: ['http://localhost:3000', 'https://chatter-project.herokuapp.com/'],
+    origin: ['https://chatter-project.herokuapp.com/', 'http://localhost:3000'],
   },
 });
 console.log(`Server started on port ${PORT}`);
