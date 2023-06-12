@@ -78,8 +78,6 @@ io.on('connection', (socket) => {
             { name: speaker },
             { $push: { chats: { user: name, messages: { hero: name, comment: mess } } } }
           ));
-      //console.log(existedChat);
-      //await User.updateOne({ name: name }, { $push: { messages: mess } });
     }
 
     const user = await User.findOne({ name });

@@ -15,7 +15,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://chatter-project.herokuapp.com' || 'http://localhost:3000',
+        target: '*',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
