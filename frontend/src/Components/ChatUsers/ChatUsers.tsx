@@ -11,7 +11,7 @@ interface IChatUsers {
   dispatchChatState: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const socket = io(`${process.env.BASE_URL}`);
+const socket = io();
 
 export const ChatUsers: React.FC<IChatUsers> = ({ dispatchChatState }) => {
   const cool = localStorage.getItem('user');
