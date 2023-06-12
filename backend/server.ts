@@ -40,11 +40,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const superServer = app.listen(PORT);
-const io = new Server(superServer, {
-  cors: {
-    origin: 'http://localhost:3000',
-  },
-});
+const io = new Server(superServer);
 console.log(`Server started on port ${PORT}`);
 
 io.on('connection', (socket) => {
