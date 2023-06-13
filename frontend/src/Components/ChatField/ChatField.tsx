@@ -12,7 +12,7 @@ interface IMessage {
   comment: string;
 }
 
-const socket = io(`${window.location.hostname}`);
+const socket = io(`${window.location.origin}`);
 
 export const ChatField: React.FC<IChatField> = ({ storage, chatSpeaker }) => {
   const user = localStorage.getItem('user');
