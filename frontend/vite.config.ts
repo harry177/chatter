@@ -9,7 +9,7 @@ export default defineConfig({
     manifest: true,
     rollupOptions: {
       // overwrite default .html entry
-      input: '/frontend/dist/assets/index-a13dd5e7.js',
+      input: '/dist/index.html',
     },
   },
   server: {
