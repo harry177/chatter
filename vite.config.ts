@@ -13,9 +13,16 @@ export default defineConfig({
     },
   },
   server: {
+    https: true,
     proxy: {
-      '/socket.io/': {
-        target: 'https://chatter-project.herokuapp.com/',
+      '/socket.io': {
+        target: 'https://localhost:3000',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+      },
+      '/api': {
+        target: 'https://localhost:3000',
         changeOrigin: true,
         secure: false,
         ws: true,
