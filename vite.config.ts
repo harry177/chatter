@@ -15,7 +15,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/socket.io/': {
-        target: process.env.API_PROXY_URL,
+        target: 'https://chatter-project.herokuapp.com/',
         changeOrigin: true,
         secure: false,
         ws: true,
