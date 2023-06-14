@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import './ChatField.styles.scss';
 import { io } from 'socket.io-client';
 
@@ -14,7 +14,7 @@ interface IMessage {
 
 const socket = io();
 
-export const ChatField: React.FC<IChatField> = ({ storage, chatSpeaker }) => {
+export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) => {
   const user = localStorage.getItem('user');
 
   const [state, setState] = useState<IMessage[]>([]);
@@ -48,4 +48,4 @@ export const ChatField: React.FC<IChatField> = ({ storage, chatSpeaker }) => {
         })}
     </div>
   );
-};
+});
