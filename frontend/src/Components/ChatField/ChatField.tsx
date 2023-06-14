@@ -31,6 +31,7 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) =
     });
   }, [storage, chatSpeaker, user]);
 
+  console.log(user);
   console.log(chatSpeaker);
 
   return (
