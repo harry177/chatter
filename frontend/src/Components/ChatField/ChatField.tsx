@@ -27,7 +27,7 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) =
     });
     socket.on('message stack', (msg) => {
       console.log(msg);
-      setState(msg);
+      msg.length !== 0 ? setState(msg) : console.log(msg.length);
     });
   }, [storage, chatSpeaker, user]);
 
