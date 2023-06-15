@@ -9,6 +9,7 @@ interface IUserItem {
 export const UserItem: React.FC<IUserItem> = ({ userName, dispatchChat }) => {
   const selectChat = () => {
     sessionStorage.setItem('selectedChat', userName);
+    console.log(userName);
     dispatchChat(userName);
   };
 
