@@ -12,12 +12,17 @@ export const Chat: React.FC<IChat> = ({ open }) => {
   const [state, setState] = useState('');
   const [chat, setChat] = useState('');
 
+  const handleChatState = (chat: React.SetStateAction<string>) => {
+    setChat(chat);
+    setState('');
+  };
+
   const handleStorageChange = (state: React.SetStateAction<string>) => {
     setState(state);
   };
-  const handleChatState = (chat: React.SetStateAction<string>) => {
-    setChat(chat);
-  };
+
+  console.log(state);
+
   if (!open) return null;
   return (
     <div className="chat">
