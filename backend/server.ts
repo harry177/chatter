@@ -152,7 +152,7 @@ io.on('connection', (socket) => {
   });
   socket.on('get users', async () => {
     const users = await User.find({});
-    io.emit('all users', users);
+    io.to(socket.id).emit('all users', users);
   });
   socket.on('disconnect', () => {
     console.log('🔥: A user disconnected');
