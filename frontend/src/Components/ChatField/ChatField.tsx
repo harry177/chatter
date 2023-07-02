@@ -11,6 +11,11 @@ interface IChatField {
   message: string;
 }*/
 
+interface IRoom {
+  a: string | null;
+  b: string | null;
+}
+
 const socket = io();
 
 export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) => {
@@ -20,6 +25,17 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) =
   const [state, setState] = useState<string[]>([]);
 
   useEffect(() => {
+    if (user && chatSpeaker) {
+      const room = [user, chatSpeaker].sort((a, b) => (a < b ? -1 : 1)).join('');
+      socket.emit('join room', { user, speaker: chatSpeaker, room });
+    }
+    socket.on('message stack', (msg) => {
+      console.log(msg);
+      setState(msg);
+    });
+  }, [chatSpeaker, user]);
+
+  useEffect(() => {
     socket.emit('chat message', {
       user,
       speaker: chatSpeaker,
@@ -27,10 +43,9 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) =
     });
     socket.on('message stack', (msg) => {
       console.log(msg);
-      //msg.length !== 0 ? setState(msg) : console.log(msg.length);
       setState(msg);
     });
-  }, [storage, chatSpeaker, user]);
+  }, [storage]);
 
   console.log(user);
   console.log(chatSpeaker);

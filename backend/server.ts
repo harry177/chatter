@@ -48,6 +48,32 @@ console.log(`Server started on port ${PORT}`);
 io.on('connection', (socket) => {
   console.log('socket connect successful');
 
+  socket.on('join room', async (data) => {
+    try {
+      const resultedChat = await messageStack.findOne({
+        chatters: [data.user, data.speaker].sort((a, b) => (a < b ? -1 : 1)),
+      });
+      if (!resultedChat) {
+        await messageStack.insertMany({
+          chatters: [data.user, data.speaker].sort((a, b) => (a < b ? -1 : 1)),
+          messages: [],
+        });
+      }
+      socket.join(data.room);
+
+      console.log(socket.rooms);
+
+      console.log(`${data.user} joins room: ${data.room}`);
+
+      const finalChat = await messageStack.findOne({
+        chatters: [data.user, data.speaker].sort((a, b) => (a < b ? -1 : 1)),
+      });
+      io.to(data.room).emit('message stack', finalChat?.messages || []);
+    } catch (e) {
+      console.error(e);
+    }
+  });
+
   socket.on('chat message', async (data) => {
     console.log('Client says', data.message);
 
@@ -55,7 +81,7 @@ io.on('connection', (socket) => {
     const speaker = data.speaker;
     const mess = data.message;
 
-    socket.join([name, speaker].sort((a, b) => (a < b ? -1 : 1)).join(''));
+    //await socket.join([name, speaker].sort((a, b) => (a < b ? -1 : 1)).join(''));
 
     if (data.message) {
       const newChat = await messageStack.findOne({
