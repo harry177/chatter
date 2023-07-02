@@ -17,4 +17,18 @@ const dataSchema = new mongoose.Schema({
   },
 });
 
+const messageSchema = new mongoose.Schema({
+  number: {
+    type: Number,
+  },
+  chatters: {
+    required: true,
+    type: Array,
+  },
+  messages: {
+    type: Array,
+  },
+});
+
 export const User = mongoose.model('User', dataSchema);
+export const messageStack = mongoose.model('messageStack', messageSchema);
