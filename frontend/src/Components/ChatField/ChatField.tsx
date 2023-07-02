@@ -29,10 +29,6 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) =
       const room = [user, chatSpeaker].sort((a, b) => (a < b ? -1 : 1)).join('');
       socket.emit('join room', { user, speaker: chatSpeaker, room });
     }
-    socket.on('message stack', (msg) => {
-      console.log(msg);
-      setState(msg);
-    });
   }, [chatSpeaker, user]);
 
   useEffect(() => {
@@ -41,11 +37,14 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) =
       speaker: chatSpeaker,
       message: storage,
     });
+  }, [storage]);
+
+  useEffect(() => {
     socket.on('message stack', (msg) => {
       console.log(msg);
       setState(msg);
     });
-  }, [storage]);
+  });
 
   console.log(user);
   console.log(chatSpeaker);

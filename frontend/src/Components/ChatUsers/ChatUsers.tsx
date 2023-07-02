@@ -20,6 +20,9 @@ export const ChatUsers: React.FC<IChatUsers> = ({ dispatchChatState }) => {
 
   useEffect(() => {
     socket.emit('get users');
+  }, [allUsers, cool]);
+
+  useEffect(() => {
     socket.on('all users', (data) => {
       const dataResult = data.filter((user: IUsers) => user.name !== cool);
       setAllUsers(dataResult);
@@ -27,7 +30,7 @@ export const ChatUsers: React.FC<IChatUsers> = ({ dispatchChatState }) => {
     return () => {
       socket.off('all users');
     };
-  }, [allUsers, cool]);
+  });
 
   return (
     <div className="chat-users">
