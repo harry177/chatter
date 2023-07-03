@@ -49,6 +49,9 @@ io.on('connection', (socket) => {
   console.log('socket connect successful');
 
   socket.on('join room', async (data) => {
+    if (data.formerSpeaker) {
+      socket.leave([data.user, data.formerSpeaker].sort((a, b) => (a < b ? -1 : 1)).join(''));
+    }
     try {
       const resultedChat = await messageStack.findOne({
         chatters: [data.user, data.speaker].sort((a, b) => (a < b ? -1 : 1)),

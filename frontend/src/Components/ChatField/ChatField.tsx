@@ -13,11 +13,13 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) =
   const user = localStorage.getItem('user');
 
   const [state, setState] = useState<string[]>([]);
+  const [chatter, setChatter] = useState('');
 
   useEffect(() => {
     if (user && chatSpeaker) {
       const room = [user, chatSpeaker].sort((a, b) => (a < b ? -1 : 1)).join('');
-      socket.emit('join room', { user, speaker: chatSpeaker, room });
+      socket.emit('join room', { user, speaker: chatSpeaker, formerSpeaker: chatter, room });
+      setChatter(chatSpeaker);
     }
   }, [chatSpeaker, user]);
 
