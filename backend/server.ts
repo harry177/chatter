@@ -69,7 +69,9 @@ io.on('connection', (socket) => {
         chatters: [data.user, data.speaker].sort((a, b) => (a < b ? -1 : 1)),
       });
       //io.to(data.room).emit('message stack', finalChat?.messages || []);
-      io.to(socket.id).emit('message stack', finalChat?.messages || []);
+      io.to(data.room)
+        .to(socket.id)
+        .emit('message stack', finalChat?.messages || []);
     } catch (e) {
       console.error(e);
     }
@@ -136,7 +138,9 @@ io.on('connection', (socket) => {
       'message stack',
       resultedChat?.messages || []
     );*/
-    io.to(socket.id).emit('message stack', resultedChat?.messages || []);
+    io.to([name, speaker].sort((a, b) => (a < b ? -1 : 1)).join(''))
+      .to(socket.id)
+      .emit('message stack', resultedChat?.messages || []);
 
     /*const user = await User.findOne({ name });
     io.emit(
