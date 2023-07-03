@@ -7,21 +7,11 @@ interface IChatField {
   chatSpeaker: string;
 }
 
-/*interface IMessage {
-  message: string;
-}*/
-
-interface IRoom {
-  a: string | null;
-  b: string | null;
-}
-
 const socket = io();
 
 export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) => {
   const user = localStorage.getItem('user');
 
-  //const [state, setState] = useState<IMessage[]>([]);
   const [state, setState] = useState<string[]>([]);
 
   useEffect(() => {
