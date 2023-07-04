@@ -96,12 +96,12 @@ io.on('connection', (socket) => {
       if (!newChat) {
         await messageStack.insertMany({
           chatters: [name, speaker].sort((a, b) => (a < b ? -1 : 1)),
-          messages: [mess],
+          messages: [{ hero: name, comment: mess }],
         });
       } else
         await messageStack.updateOne(
           { chatters: [name, speaker].sort((a, b) => (a < b ? -1 : 1)) },
-          { $push: { messages: mess } }
+          { $push: { messages: { hero: name, comment: mess } } }
         );
 
       /*const existedChat = await User.findOne({ name, 'chats.user': speaker });

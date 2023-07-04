@@ -18,15 +18,12 @@ const dataSchema = new mongoose.Schema({
 });
 
 const messageSchema = new mongoose.Schema({
-  number: {
-    type: Number,
-  },
   chatters: {
     required: true,
     type: Array,
   },
   messages: {
-    type: Array,
+    type: [{ hero: String, comment: String }],
   },
 });
 
