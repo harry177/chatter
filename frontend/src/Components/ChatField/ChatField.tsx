@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import './ChatField.styles.scss';
+import { ChatMessage } from '../ChatMessage/ChatMessage';
 import { io } from 'socket.io-client';
 
 interface IChatField {
@@ -50,14 +51,7 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) =
     <div className="chat-field">
       {(storage || chatSpeaker) &&
         state.map((message) => {
-          return (
-            <div
-              key={state.indexOf(message)}
-              className={message.hero === user ? 'chat-item__hero' : 'chat-item__npc'}
-            >
-              {message.comment}
-            </div>
-          );
+          return <ChatMessage key={state.indexOf(message)} mail={message} />;
         })}
     </div>
   );
