@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import './ChatField.styles.scss';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import { io } from 'socket.io-client';
@@ -47,15 +47,27 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) =
   console.log(user);
   console.log(chatSpeaker);
 
+  const bottom = useRef<HTMLDivElement>(null);
+
+  const moveToBottom = () => {
+    bottom?.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  };
+
+  useEffect(() => {
+    moveToBottom();
+  });
+
   return (
     <div className={chatSpeaker ? 'chat-field' : 'blank-field'}>
       {!chatSpeaker && 'To start chat select user from the left panel'}
-      <div className="chat-body">
-        {(storage || chatSpeaker) &&
-          state.map((message) => {
-            return <ChatMessage key={state.indexOf(message)} mail={message} />;
-          })}
-      </div>
+      {chatSpeaker && (
+        <div className="chat-body" ref={bottom}>
+          {(storage || chatSpeaker) &&
+            state.map((message) => {
+              return <ChatMessage key={state.indexOf(message)} mail={message} />;
+            })}
+        </div>
+      )}
     </div>
   );
 });
