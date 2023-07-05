@@ -3,9 +3,10 @@ import './ChatInput.styles.scss';
 
 interface IStorage {
   setStorage: React.Dispatch<React.SetStateAction<string>>;
+  chatSpeaker: string;
 }
 
-export const ChatInput: React.FC<IStorage> = ({ setStorage }) => {
+export const ChatInput: React.FC<IStorage> = ({ setStorage, chatSpeaker }) => {
   const [state, setState] = useState('');
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +21,7 @@ export const ChatInput: React.FC<IStorage> = ({ setStorage }) => {
     }
   };
 
+  if (!chatSpeaker) return null;
   return (
     <div className="chat-input">
       <input className="chat-input__field" type="text" onChange={handleInput} value={state}></input>

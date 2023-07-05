@@ -29,7 +29,7 @@ export const Chat: React.FC<IChat> = ({ open }) => {
       <ChatUsers dispatchChatState={handleChatState} />
       <div className="right-chat__block">
         <ChatField storage={state} chatSpeaker={chat} />
-        <ChatInput setStorage={handleStorageChange} />
+        <ChatInput setStorage={handleStorageChange} chatSpeaker={chat} />
       </div>
     </div>
   );

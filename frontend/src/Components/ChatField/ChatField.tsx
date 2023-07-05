@@ -48,7 +48,8 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) =
   console.log(chatSpeaker);
 
   return (
-    <div className="chat-field">
+    <div className={chatSpeaker ? 'chat-field' : 'blank-field'}>
+      {!chatSpeaker && 'To start chat select user from the left panel'}
       <div className="chat-body">
         {(storage || chatSpeaker) &&
           state.map((message) => {
