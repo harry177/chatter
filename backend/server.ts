@@ -8,6 +8,28 @@ import cors from 'cors';
 import bodyParser, { OptionsUrlencoded } from 'body-parser';
 import { Server } from 'socket.io';
 
+interface SocketData {
+  username: string;
+  joinRoom: (data: { user: string; speaker: string; formerSpeaker: string; room: string }) => void;
+  getUsers: () => void;
+  chatMessage: (data: { user: string; speaker: string; message: string }) => void;
+}
+
+interface ServerToClientEvents {
+  noArg: () => void;
+  basicEmit: (a: number, b: string, c: Buffer) => void;
+  withAck: (d: string, callback: (e: number) => void) => void;
+  note: (f: string[]) => string[];
+}
+
+interface ClientToServerEvents {
+  note: (f: string[]) => void;
+  messageStack: (
+    data: { hero?: string | undefined; comment?: string | undefined }[] | undefined
+  ) => void;
+  allUsers: (a: string[]) => void;
+}
+
 dotenv.config();
 const app = express();
 
@@ -38,17 +60,32 @@ app.get('*', (req, res) =>
 );
 
 const superServer = app.listen(PORT);
-const io = new Server(superServer, {
+const io = new Server<SocketData, ClientToServerEvents, ServerToClientEvents>(superServer, {
   cors: {
     origin: '*',
   },
 });
 console.log(`Server started on port ${PORT}`);
 
+io.use((socket, next) => {
+  const username = socket.handshake.auth.user;
+  if (!username) {
+    return next(new Error('invalid username'));
+  }
+  socket.data.username = username;
+  next();
+});
+
 io.on('connection', (socket) => {
   console.log('socket connect successful');
 
-  socket.on('join room', async (data) => {
+  const users: string[] = [];
+  users.push(socket.data.username);
+  users.filter((el, ind) => ind === users.indexOf(el));
+
+  socket.broadcast.emit('note', users);
+
+  socket.on('joinRoom', async (data) => {
     if (data.formerSpeaker) {
       socket.leave([data.user, data.formerSpeaker].sort((a, b) => (a < b ? -1 : 1)).join(''));
     }
@@ -74,13 +111,13 @@ io.on('connection', (socket) => {
       //io.to(data.room).emit('message stack', finalChat?.messages || []);
       io.to(data.room)
         .to(socket.id)
-        .emit('message stack', finalChat?.messages || []);
+        .emit('messageStack', finalChat?.messages || []);
     } catch (e) {
       console.error(e);
     }
   });
 
-  socket.on('chat message', async (data) => {
+  socket.on('chatMessage', async (data) => {
     console.log('Client says', data.message);
 
     const name = data.user;
@@ -143,7 +180,7 @@ io.on('connection', (socket) => {
     );*/
     io.to([name, speaker].sort((a, b) => (a < b ? -1 : 1)).join(''))
       .to(socket.id)
-      .emit('message stack', resultedChat?.messages || []);
+      .emit('messageStack', resultedChat?.messages || []);
 
     /*const user = await User.findOne({ name });
     io.emit(
@@ -159,10 +196,16 @@ io.on('connection', (socket) => {
       neededChat?.messages || []
     );*/
   });
-  socket.on('get users', async () => {
+  socket.on('getUsers', async () => {
+    const resultedUsers = [];
     const users = await User.find({});
-    io.to(socket.id).emit('all users', users);
+    //const range = Object.values(users);
+    for (const i of users) {
+      resultedUsers.push(users[users.indexOf(i)].name);
+    }
+    io.to(socket.id).emit('allUsers', resultedUsers);
   });
+
   socket.on('disconnect', () => {
     console.log('🔥: A user disconnected');
   });
