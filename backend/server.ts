@@ -209,7 +209,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    users.splice(socket.data.username);
+    users.splice(users.indexOf(socket.data.username), 1);
     io.emit('getUsers', users);
     console.log('🔥: A user disconnected');
   });
