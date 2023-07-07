@@ -11,7 +11,7 @@ import { Server } from 'socket.io';
 interface SocketData {
   username: string;
   joinRoom: (data: { user: string; speaker: string; formerSpeaker: string; room: string }) => void;
-  getUsers: () => void;
+  getAll: () => void;
   chatMessage: (data: { user: string; speaker: string; message: string }) => void;
   addUser: (data: string) => void;
 }
@@ -84,7 +84,6 @@ io.on('connection', (socket) => {
   console.log('socket connect successful');
 
   socket.on('addUser', (newUser) => {
-    //users.push(socket.data.username);
     if (!users.some((user) => user === newUser)) {
       users.push(newUser);
     }
@@ -199,7 +198,7 @@ io.on('connection', (socket) => {
       neededChat?.messages || []
     );*/
   });
-  socket.on('getUsers', async () => {
+  socket.on('getAll', async () => {
     const resultedUsers = [];
     const users = await User.find({});
     //const range = Object.values(users);

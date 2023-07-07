@@ -14,7 +14,7 @@ export const ChatUsers: React.FC<IChatUsers> = ({ dispatchChatState, online }) =
   const [allUsers, setAllUsers] = useState<string[]>([]);
 
   useEffect(() => {
-    socket.emit('getUsers');
+    socket.emit('getAll');
   }, [allUsers, cool]);
 
   useEffect(() => {
