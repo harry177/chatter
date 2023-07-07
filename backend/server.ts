@@ -76,10 +76,11 @@ io.use((socket, next) => {
   next();
 });
 
+const users: string[] = [];
+
 io.on('connection', (socket) => {
   console.log('socket connect successful');
 
-  const users: string[] = [];
   users.push(socket.data.username);
 
   console.log(users);
