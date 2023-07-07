@@ -4,7 +4,7 @@ import './UserItem.style.scss';
 interface IUserItem {
   userName: string;
   dispatchChat: React.Dispatch<React.SetStateAction<string>>;
-  online: string[];
+  online: boolean;
 }
 
 export const UserItem: React.FC<IUserItem> = ({ userName, dispatchChat, online }) => {
@@ -14,10 +14,8 @@ export const UserItem: React.FC<IUserItem> = ({ userName, dispatchChat, online }
     dispatchChat(userName);
   };
 
-  const zatyk: string[] = [];
-
   return (
-    <div className={online.includes(userName) ? 'user-online' : 'user-item'} onClick={selectChat}>
+    <div className={online ? 'user-online' : 'user-item'} onClick={selectChat}>
       <div className="user-item__avatar"></div>
       <div className="user-item__main">
         <div className="user-item__name">{userName}</div>

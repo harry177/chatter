@@ -36,7 +36,7 @@ export const ChatUsers: React.FC<IChatUsers> = ({ dispatchChatState, online }) =
               key={allUsers.indexOf(user)}
               userName={user}
               dispatchChat={dispatchChatState}
-              online={online}
+              online={online.includes(user)}
             />
           );
         })}
