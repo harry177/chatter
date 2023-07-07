@@ -49,16 +49,23 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, onl
   const bottom = useRef<HTMLDivElement>(null);
 
   const moveToBottom = () => {
+    bottom?.current?.scrollIntoView({ behavior: 'instant', block: 'end' });
+  };
+
+  const moveToBottomSmoothly = () => {
     bottom?.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   };
 
   useEffect(() => {
     moveToBottom();
-  });
+  }, [chatSpeaker]);
+
+  useEffect(() => {
+    moveToBottomSmoothly();
+  }, [state]);
 
   return (
     <div className={chatSpeaker ? 'chat-field' : 'blank-field'}>
-      {user && online.includes(user) && <div className="spoiler"></div>}
       {!chatSpeaker && 'To start chat select user from the left panel'}
       {chatSpeaker && (
         <div className="chat-body" ref={bottom}>

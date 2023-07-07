@@ -12,7 +12,7 @@ export const ChatMessage: React.FC<IChatMessage> = ({ mail }) => {
   return (
     <div className={mail.hero === user ? 'chat-item__hero' : 'chat-item__npc'}>
       <div className="chat-message__container">
-        <div className="chat-message__image"></div>
+        <div className="chat-message__image" />
         <div className="chat-message">
           <div className="chat-message__header">{mail.hero}</div>
           <div>{mail.comment}</div>
