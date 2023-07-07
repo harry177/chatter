@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "node ./backend/dist/server.js",
-    "dev": "cd frontend && npm run build && cd .. && npm run start",
+    "dev": "npm i && cd frontend && npm run build && cd .. && npm run start",
     "postinstall": "tsc",
     "heroku-postbuild": "cd frontend && npm install && npm run build"
   },

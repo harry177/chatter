@@ -3,17 +3,16 @@ import './Chat.styles.scss';
 import { ChatField } from '../ChatField/ChatField';
 import { ChatInput } from '../ChatInput/ChatInput';
 import { ChatUsers } from '../ChatUsers/ChatUsers';
-import { io } from 'socket.io-client';
+import { socket } from '../../socket';
 
 interface IChat {
   open: string;
 }
 
-const socket = io();
-
 export const Chat: React.FC<IChat> = ({ open }) => {
   const [state, setState] = useState('');
   const [chat, setChat] = useState('');
+  const [online, setOnline] = useState<string[]>([]);
 
   const handleChatState = (chat: React.SetStateAction<string>) => {
     setChat(chat);
@@ -31,14 +30,25 @@ export const Chat: React.FC<IChat> = ({ open }) => {
   useEffect(() => {
     socket.auth = { user };
     socket.connect();
-  });
+  }, [open, user]);
+
+  useEffect(() => {
+    socket.on('note', (data) => {
+      console.log(data);
+      setOnline(data);
+      console.log(online);
+    });
+    return () => {
+      socket.off('note');
+    };
+  }, [online]);
 
   if (!open) return null;
   return (
     <div className="chat">
-      <ChatUsers dispatchChatState={handleChatState} />
+      <ChatUsers dispatchChatState={handleChatState} online={online} />
       <div className="right-chat__block">
-        <ChatField storage={state} chatSpeaker={chat} />
+        <ChatField storage={state} chatSpeaker={chat} online={online} />
         <ChatInput setStorage={handleStorageChange} chatSpeaker={chat} />
       </div>
     </div>

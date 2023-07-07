@@ -81,9 +81,9 @@ io.on('connection', (socket) => {
 
   const users: string[] = [];
   users.push(socket.data.username);
-  users.filter((el, ind) => ind === users.indexOf(el));
 
-  socket.broadcast.emit('note', users);
+  console.log(users);
+  socket.emit('note', users);
 
   socket.on('joinRoom', async (data) => {
     if (data.formerSpeaker) {
@@ -123,8 +123,6 @@ io.on('connection', (socket) => {
     const name = data.user;
     const speaker = data.speaker;
     const mess = data.message;
-
-    //await socket.join([name, speaker].sort((a, b) => (a < b ? -1 : 1)).join(''));
 
     if (data.message) {
       const newChat = await messageStack.findOne({
@@ -174,10 +172,6 @@ io.on('connection', (socket) => {
       chatters: [name, speaker].sort((a, b) => (a < b ? -1 : 1)),
     });
 
-    /*io.to([name, speaker].sort((a, b) => (a < b ? -1 : 1)).join('')).emit(
-      'message stack',
-      resultedChat?.messages || []
-    );*/
     io.to([name, speaker].sort((a, b) => (a < b ? -1 : 1)).join(''))
       .to(socket.id)
       .emit('messageStack', resultedChat?.messages || []);

@@ -1,11 +1,12 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import './ChatField.styles.scss';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
-import { io } from 'socket.io-client';
+import { socket } from '../../socket';
 
 interface IChatField {
   storage: string;
   chatSpeaker: string;
+  online: string[];
 }
 
 interface IMessage {
@@ -13,9 +14,7 @@ interface IMessage {
   comment: string;
 }
 
-const socket = io();
-
-export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) => {
+export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, online }) => {
   const user = localStorage.getItem('user');
 
   const [state, setState] = useState<IMessage[]>([]);
@@ -59,6 +58,7 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker }) =
 
   return (
     <div className={chatSpeaker ? 'chat-field' : 'blank-field'}>
+      {user && online.includes(user) && <div className="spoiler"></div>}
       {!chatSpeaker && 'To start chat select user from the left panel'}
       {chatSpeaker && (
         <div className="chat-body" ref={bottom}>

@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { UserItem } from '../UserItem/UserItem';
-import { io } from 'socket.io-client';
+import { socket } from '../../socket';
 import './ChatUsers.styles.scss';
-
-/*interface IUsers {
-  name: string;
-}*/
 
 interface IChatUsers {
   dispatchChatState: React.Dispatch<React.SetStateAction<string>>;
+  online: string[];
 }
 
-const socket = io();
-
-export const ChatUsers: React.FC<IChatUsers> = ({ dispatchChatState }) => {
+export const ChatUsers: React.FC<IChatUsers> = ({ dispatchChatState, online }) => {
   const cool = localStorage.getItem('user');
 
   const [allUsers, setAllUsers] = useState<string[]>([]);
@@ -41,6 +36,7 @@ export const ChatUsers: React.FC<IChatUsers> = ({ dispatchChatState }) => {
               key={allUsers.indexOf(user)}
               userName={user}
               dispatchChat={dispatchChatState}
+              online={online}
             />
           );
         })}
