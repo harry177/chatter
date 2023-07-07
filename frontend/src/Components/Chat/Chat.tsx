@@ -6,10 +6,10 @@ import { ChatUsers } from '../ChatUsers/ChatUsers';
 import { socket } from '../../socket';
 
 interface IChat {
-  open: string;
+  user: string;
 }
 
-export const Chat: React.FC<IChat> = ({ open }) => {
+export const Chat: React.FC<IChat> = ({ user }) => {
   const [state, setState] = useState('');
   const [chat, setChat] = useState('');
   const [online, setOnline] = useState<string[]>([]);
@@ -23,27 +23,34 @@ export const Chat: React.FC<IChat> = ({ open }) => {
     setState(state);
   };
 
-  console.log(state);
-
-  const user = localStorage.getItem('user');
-
   useEffect(() => {
     socket.auth = { user };
     socket.connect();
-  }, [open, user]);
+    socket.emit('addUser', user);
+    socket.on('getUsers', (users) => {
+      setOnline(users);
+    });
+  }, [user]);
 
   useEffect(() => {
+    socket.on('getUsers', (users) => {
+      setOnline(users);
+    });
+    return () => {
+      socket.off('getUsers');
+    };
+  });
+
+  /*useEffect(() => {
     socket.on('note', (data) => {
-      console.log(data);
       setOnline(data);
-      console.log(online);
     });
     return () => {
       socket.off('note');
     };
-  }, [online]);
+  });*/
 
-  if (!open) return null;
+  if (!user) return null;
   return (
     <div className="chat">
       <ChatUsers dispatchChatState={handleChatState} online={online} />

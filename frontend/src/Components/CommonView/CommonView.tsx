@@ -26,7 +26,7 @@ export const CommonView: React.FC<IData> = ({ dispatchData, finalData }) => {
       {!isLogin && !finalData && (
         <SignInForm setProps={dispatchData} dispatchBack={handleViewChange} />
       )}
-      <Chat open={finalData} />
+      <Chat user={finalData} />
     </main>
   );
 };

@@ -13,6 +13,7 @@ interface SocketData {
   joinRoom: (data: { user: string; speaker: string; formerSpeaker: string; room: string }) => void;
   getUsers: () => void;
   chatMessage: (data: { user: string; speaker: string; message: string }) => void;
+  addUser: (data: string) => void;
 }
 
 interface ServerToClientEvents {
@@ -28,6 +29,7 @@ interface ClientToServerEvents {
     data: { hero?: string | undefined; comment?: string | undefined }[] | undefined
   ) => void;
   allUsers: (a: string[]) => void;
+  getUsers: (data: string[]) => void;
 }
 
 dotenv.config();
@@ -81,10 +83,16 @@ const users: string[] = [];
 io.on('connection', (socket) => {
   console.log('socket connect successful');
 
-  users.push(socket.data.username);
+  socket.on('addUser', (newUser) => {
+    //users.push(socket.data.username);
+    if (!users.some((user) => user === newUser)) {
+      users.push(newUser);
+    }
+    io.emit('getUsers', users);
+  });
 
   console.log(users);
-  socket.emit('note', users);
+  //socket.emit('note', users);
 
   socket.on('joinRoom', async (data) => {
     if (data.formerSpeaker) {
@@ -202,6 +210,8 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
+    users.splice(socket.data.username);
+    io.emit('getUsers', users);
     console.log('🔥: A user disconnected');
   });
 });
