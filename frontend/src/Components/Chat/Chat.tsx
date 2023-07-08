@@ -13,6 +13,7 @@ export const Chat: React.FC<IChat> = ({ user }) => {
   const [state, setState] = useState('');
   const [chat, setChat] = useState('');
   const [online, setOnline] = useState<string[]>([]);
+  const [connect, setConnect] = useState(false);
 
   const handleChatState = (chat: React.SetStateAction<string>) => {
     setChat(chat);
@@ -23,18 +24,14 @@ export const Chat: React.FC<IChat> = ({ user }) => {
     setState(state);
   };
 
-  const connect = () => {
+  useEffect(() => {
     socket.auth = { user };
     socket.connect();
     socket.emit('addUser', user);
     socket.on('getUsers', (users) => {
       setOnline(users);
     });
-  };
-
-  useEffect(() => {
-    connect();
-  }, [user]);
+  }, [user, connect]);
 
   useEffect(() => {
     socket.on('getUsers', (users) => {
@@ -45,9 +42,7 @@ export const Chat: React.FC<IChat> = ({ user }) => {
         }) &&
         user !== ''
       ) {
-        socket.auth = { user };
-        socket.connect();
-        socket.emit('addUser', user);
+        setConnect(!connect);
       }
     });
     return () => {
