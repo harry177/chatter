@@ -45,9 +45,11 @@ export const Chat: React.FC<IChat> = ({ user }) => {
         }) &&
         user !== ''
       ) {
+        socket.auth = { user };
         setTimeout(() => {
           socket.connect();
-        }, 3000);
+        }, 1000);
+        socket.emit('addUser', user);
       }
     });
     return () => {
