@@ -4,7 +4,6 @@ import { ChatField } from '../ChatField/ChatField';
 import { ChatInput } from '../ChatInput/ChatInput';
 import { ChatUsers } from '../ChatUsers/ChatUsers';
 import { socket } from '../../socket';
-import io from 'socket.io-client';
 
 interface IChat {
   user: string;
@@ -31,13 +30,6 @@ export const Chat: React.FC<IChat> = ({ user }) => {
     socket.on('getUsers', (users) => {
       setOnline(users);
     });
-    return () => {
-      if (socket) {
-        socket.off('connect');
-        socket.off('getUsers');
-        socket.disconnect();
-      }
-    };
   };
 
   useEffect(() => {
@@ -53,36 +45,9 @@ export const Chat: React.FC<IChat> = ({ user }) => {
         }) &&
         user !== ''
       ) {
-        if (!socket) {
-          const socket = io();
-          socket.auth = { user };
-          socket.connect();
-          socket.emit('addUser', user);
-          socket.on('getUsers', (users) => {
-            setOnline(users);
-          });
-          return () => {
-            if (socket) {
-              socket.off('connect');
-              socket.off('getUsers');
-              socket.disconnect();
-            }
-          };
-        } else {
-          socket.auth = { user };
-          socket.connect();
-          socket.emit('addUser', user);
-          socket.on('getUsers', (users) => {
-            setOnline(users);
-          });
-          return () => {
-            if (socket) {
-              socket.off('connect');
-              socket.off('getUsers');
-              socket.disconnect();
-            }
-          };
-        }
+        socket.auth = { user };
+        socket.connect();
+        socket.emit('addUser', user);
       }
     });
     return () => {
