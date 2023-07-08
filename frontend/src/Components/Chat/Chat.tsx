@@ -13,7 +13,6 @@ export const Chat: React.FC<IChat> = ({ user }) => {
   const [state, setState] = useState('');
   const [chat, setChat] = useState('');
   const [online, setOnline] = useState<string[]>([]);
-  const [random, setRandom] = useState(0);
 
   const handleChatState = (chat: React.SetStateAction<string>) => {
     setChat(chat);
@@ -24,14 +23,18 @@ export const Chat: React.FC<IChat> = ({ user }) => {
     setState(state);
   };
 
-  useEffect(() => {
+  const connect = () => {
     socket.auth = { user };
     socket.connect();
     socket.emit('addUser', user);
     socket.on('getUsers', (users) => {
       setOnline(users);
     });
-  }, [user, random]);
+  };
+
+  useEffect(() => {
+    connect();
+  }, [user]);
 
   useEffect(() => {
     socket.on('getUsers', (users) => {
@@ -42,7 +45,7 @@ export const Chat: React.FC<IChat> = ({ user }) => {
         }) &&
         user !== ''
       ) {
-        setRandom(Math.random());
+        connect();
       }
     });
     return () => {
