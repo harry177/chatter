@@ -91,7 +91,6 @@ io.on('connection', (socket) => {
   });
 
   console.log(users);
-  //socket.emit('note', users);
 
   socket.on('joinRoom', async (data) => {
     if (data.formerSpeaker) {

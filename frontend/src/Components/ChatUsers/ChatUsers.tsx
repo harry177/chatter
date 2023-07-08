@@ -27,8 +27,6 @@ export const ChatUsers: React.FC<IChatUsers> = ({ dispatchChatState, online }) =
     };
   });
 
-  console.log(online);
-
   return (
     <div className="chat-users">
       {allUsers &&

@@ -35,20 +35,21 @@ export const Chat: React.FC<IChat> = ({ user }) => {
   useEffect(() => {
     socket.on('getUsers', (users) => {
       setOnline(users);
+      if (
+        !users.find((mainUser: string) => {
+          mainUser === user;
+        }) &&
+        user !== ''
+      ) {
+        setState('');
+        socket.connect();
+        socket.emit('addUser', user);
+      }
     });
     return () => {
       socket.off('getUsers');
     };
   });
-
-  /*useEffect(() => {
-    socket.on('note', (data) => {
-      setOnline(data);
-    });
-    return () => {
-      socket.off('note');
-    };
-  });*/
 
   if (!user) return null;
   return (

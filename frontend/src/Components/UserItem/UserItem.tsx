@@ -10,11 +10,8 @@ interface IUserItem {
 export const UserItem: React.FC<IUserItem> = ({ userName, dispatchChat, online }) => {
   const selectChat = () => {
     sessionStorage.setItem('selectedChat', userName);
-    console.log(userName);
     dispatchChat(userName);
   };
-
-  console.log(online);
 
   return (
     <div className={online ? 'user-online' : 'user-item'} onClick={selectChat}>

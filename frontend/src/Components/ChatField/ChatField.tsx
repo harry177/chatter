@@ -38,13 +38,9 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, onl
 
   useEffect(() => {
     socket.on('messageStack', (msg) => {
-      console.log(msg);
       setState(msg);
     });
   });
-
-  console.log(user);
-  console.log(chatSpeaker);
 
   const bottom = useRef<HTMLDivElement>(null);
 
