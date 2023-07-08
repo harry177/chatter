@@ -42,8 +42,6 @@ export const Chat: React.FC<IChat> = ({ user }) => {
         user !== ''
       ) {
         setState('');
-        socket.connect();
-        socket.emit('addUser', user);
       }
     });
     return () => {
