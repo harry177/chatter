@@ -14,3 +14,34 @@
   height: inherit;
   position: relative;
 }
+
+.main-user__image {
+  width: 40px;
+  height: 40px;
+  background-image: url('./assets/anon-image.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.main-user__image-active {
+  width: 40px;
+  height: 40px;
+  background-image: url('./assets/anon-image.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.main-user__image-active::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  left: 32px;
+  top: 2px;
+  display: block;
+  position: relative;
+  border-radius: 50%;
+  background-color: lightgreen;
+  z-index: 20;
+}

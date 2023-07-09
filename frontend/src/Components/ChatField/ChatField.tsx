@@ -67,7 +67,7 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, onl
         <div className="chat-body" ref={bottom}>
           {(storage || chatSpeaker) &&
             state.map((message) => {
-              return <ChatMessage key={state.indexOf(message)} mail={message} />;
+              return <ChatMessage key={state.indexOf(message)} mail={message} online={online} />;
             })}
         </div>
       )}

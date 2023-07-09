@@ -1,5 +1,6 @@
 import React from 'react';
 import './MainUser.styles.scss';
+import '../../App.scss';
 
 interface IMainUser {
   user: string;
