@@ -12,9 +12,12 @@ interface IChat {
 export const Chat: React.FC<IChat> = ({ user }) => {
   const [state, setState] = useState('');
   const [chat, setChat] = useState('');
+
+  const [connect, setConnect] = useState(false);
+  const connectRef = useRef<boolean>(connect);
+
   const [online, setOnline] = useState<string[]>([]);
   const onlineRef = useRef<string[]>(online);
-  //const [connect, setConnect] = useState(false);
 
   const handleChatState = (chat: React.SetStateAction<string>) => {
     setChat(chat);
@@ -47,7 +50,7 @@ export const Chat: React.FC<IChat> = ({ user }) => {
     } else {
       console.log('No user');
     }
-  }, [user]);
+  }, [user, connect]);
 
   useEffect(() => {
     if (!user) {
@@ -56,8 +59,8 @@ export const Chat: React.FC<IChat> = ({ user }) => {
   }, [user]);
 
   useEffect(() => {
-    if (user) {
-      socket.on('getUsers', (users) => {
+    socket.on('getUsers', (users) => {
+      if (user) {
         if (users !== online) {
           setOnline(users);
         }
@@ -68,14 +71,15 @@ export const Chat: React.FC<IChat> = ({ user }) => {
           user !== ''
         ) {
           //online.length !== 0 ? setOnline([]) : console.log(online);
-          setChat('');
-          //setConnect(!connect);
+          setConnect(!connectRef);
         }
-      });
-      return () => {
-        socket.off('getUsers');
-      };
-    }
+      } else {
+        setChat('');
+      }
+    });
+    return () => {
+      socket.off('getUsers');
+    };
   }, [user, online]);
 
   console.log(user);
