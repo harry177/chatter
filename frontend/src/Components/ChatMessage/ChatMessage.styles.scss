@@ -3,6 +3,7 @@
   flex-direction: column;
   padding-left: 7px;
   padding-right: 7px;
+  max-width: 80%;
 }
 
 .chat-message__container {
@@ -14,6 +15,10 @@
 
 .chat-message__header {
   font-weight: bold;
+  text-align: left;
+}
+
+.chat-message__body {
   text-align: left;
 }
 

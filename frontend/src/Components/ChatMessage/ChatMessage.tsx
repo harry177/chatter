@@ -7,10 +7,11 @@ interface IChatMessage {
     comment: string;
   };
   online: string[];
+  user: string;
 }
 
-export const ChatMessage: React.FC<IChatMessage> = ({ mail, online }) => {
-  const user = localStorage.getItem('user');
+export const ChatMessage: React.FC<IChatMessage> = ({ mail, online, user }) => {
+  //const user = localStorage.getItem('user');
   return (
     <div className={mail.hero === user ? 'chat-item__hero' : 'chat-item__npc'}>
       <div className="chat-message__container">
@@ -19,7 +20,7 @@ export const ChatMessage: React.FC<IChatMessage> = ({ mail, online }) => {
         />
         <div className="chat-message">
           <div className="chat-message__header">{mail.hero}</div>
-          <div>{mail.comment}</div>
+          <div className="chat-message__body">{mail.comment}</div>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ interface IChatField {
   storage: string;
   chatSpeaker: string;
   online: string[];
+  user: string;
 }
 
 interface IMessage {
@@ -14,8 +15,8 @@ interface IMessage {
   comment: string;
 }
 
-export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, online }) => {
-  const user = localStorage.getItem('user');
+export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, online, user }) => {
+  //const user = localStorage.getItem('user');
 
   const [state, setState] = useState<IMessage[]>([]);
   const [chatter, setChatter] = useState('');
@@ -38,9 +39,11 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, onl
 
   useEffect(() => {
     socket.on('messageStack', (msg) => {
-      setState(msg);
+      if (state !== msg) {
+        setState(msg);
+      }
     });
-  });
+  }, [state]);
 
   const bottom = useRef<HTMLDivElement>(null);
 
@@ -60,6 +63,8 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, onl
     moveToBottomSmoothly();
   }, [state]);
 
+  console.log(user);
+
   return (
     <div className={chatSpeaker ? 'chat-field' : 'blank-field'}>
       {!chatSpeaker && 'To start chat select user from the left panel'}
@@ -67,7 +72,14 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, onl
         <div className="chat-body" ref={bottom}>
           {(storage || chatSpeaker) &&
             state.map((message) => {
-              return <ChatMessage key={state.indexOf(message)} mail={message} online={online} />;
+              return (
+                <ChatMessage
+                  key={state.indexOf(message)}
+                  mail={message}
+                  online={online}
+                  user={user}
+                />
+              );
             })}
         </div>
       )}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import './UserItem.style.scss';
 
 interface IUserItem {
@@ -7,11 +7,12 @@ interface IUserItem {
   online: boolean;
 }
 
-export const UserItem: React.FC<IUserItem> = ({ userName, dispatchChat, online }) => {
+export const UserItem: React.FC<IUserItem> = memo(({ userName, dispatchChat, online }) => {
   const selectChat = () => {
-    sessionStorage.setItem('selectedChat', userName);
     dispatchChat(userName);
   };
+
+  console.log(userName);
 
   return (
     <div className={online ? 'user-online' : 'user-item'} onClick={selectChat}>
@@ -22,4 +23,4 @@ export const UserItem: React.FC<IUserItem> = ({ userName, dispatchChat, online }
       </div>
     </div>
   );
-};
+});

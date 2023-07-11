@@ -1,13 +1,24 @@
 .main-user {
+  width: 260px;
+  height: 100%;
   display: flex;
+  justify-content: space-around;
   align-items: center;
+  padding-right: 23px;
 }
 
 .main-user__info {
-  width: 120px;
-  height: 100%;
+  width: 100px;
+  height: inherit;
   display: flex;
   flex-direction: column;
   justify-content: center;
   font-size: 14px;
+}
+
+.exit-button {
+  width: 70px;
+  height: 80%;
+  font-size: 15px;
+  z-index: 100;
 }

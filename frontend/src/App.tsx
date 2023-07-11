@@ -10,9 +10,10 @@ export const App = () => {
   const handleDataChange = (data: React.SetStateAction<string>) => {
     setData(data);
   };
+
   return (
     <div className="general">
-      <Header user={data} />
+      <Header dispatchExit={handleDataChange} user={data} />
       <CommonView dispatchData={handleDataChange} finalData={data} />
       <Footer />
     </div>
