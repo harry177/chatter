@@ -88,6 +88,7 @@ io.on('connection', (socket) => {
     if (!users.some((user) => user === newUser)) {
       users.push(newUser);
     }
+    users.sort((a, b) => (a < b ? -1 : 1));
     io.emit('getUsers', users);
   });
 
@@ -146,34 +147,6 @@ io.on('connection', (socket) => {
           { chatters: [name, speaker].sort((a, b) => (a < b ? -1 : 1)) },
           { $push: { messages: { hero: name, comment: mess } } }
         );
-
-      /*const existedChat = await User.findOne({ name, 'chats.user': speaker });
-      existedChat
-        ? (await User.updateOne(
-            { name },
-            { $push: { 'chats.$[t].messages': { hero: name, comment: mess } } },
-            { arrayFilters: [{ 't.user': speaker }] }
-          )) &&
-          (await User.updateOne(
-            { name: speaker },
-            { $push: { 'chats.$[t].messages': { hero: name, comment: mess } } },
-            { arrayFilters: [{ 't.user': name }] }
-          ))
-        : (await User.updateOne(
-            { name },
-            { $push: { chats: { user: speaker, messages: { hero: name, comment: mess } } } }
-          )) &&
-          (await User.updateOne(
-            { name: speaker },
-            { $push: { chats: { user: name, messages: { hero: name, comment: mess } } } }
-          ));*/
-
-      /*newChat
-        ? await messageStack.updateOne({ $push: { messages: mess } })
-        : new messageStack(
-            { chatters: [name, speaker].sort((a, b) => (a < b ? 1 : -1)) },
-            { messages: [mess] }
-          );*/
     }
 
     const resultedChat = await messageStack.findOne({
@@ -183,21 +156,8 @@ io.on('connection', (socket) => {
     io.to([name, speaker].sort((a, b) => (a < b ? -1 : 1)).join(''))
       .to(socket.id)
       .emit('messageStack', resultedChat?.messages || []);
-
-    /*const user = await User.findOne({ name });
-    io.emit(
-      'message stack',
-      user?.chats?.find((item: { user?: string | undefined }) => item.user === speaker)?.messages ||
-        []
-    );*/
-    /*const neededChat = await messageStack.findOne({
-      chatters: [name, speaker].sort((a, b) => (a < b ? -1 : 1)),
-    });
-    io.to([name, speaker].sort((a, b) => (a < b ? -1 : 1)).join('')).emit(
-      'message stack',
-      neededChat?.messages || []
-    );*/
   });
+
   socket.on('getAll', async () => {
     const resultedUsers = [];
     const users = await User.find({});
@@ -210,6 +170,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     users.splice(users.indexOf(socket.data.username), 1);
+    users.sort((a, b) => (a < b ? -1 : 1));
     io.emit('getFinalUsers', users);
     console.log('🔥: A user disconnected');
   });

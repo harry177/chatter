@@ -14,7 +14,6 @@ export const Chat: React.FC<IChat> = ({ user }) => {
   const [chat, setChat] = useState('');
 
   const [connect, setConnect] = useState(false);
-  //const connectRef = useRef<boolean>(connect);
 
   const [online, setOnline] = useState<string[]>([]);
   const onlineRef = useRef<string[]>(online);
@@ -40,12 +39,16 @@ export const Chat: React.FC<IChat> = ({ user }) => {
       socket.emit('addUser', user);
       socket.on('getUsers', (users) => {
         console.log(users);
-        if (users.some((value: string, index: number) => value !== onlineRef.current[index])) {
+        if (
+          users.length !== onlineRef.current.length ||
+          users.every((value: string, index: number) => value !== onlineRef.current[index])
+        ) {
           setOnline(users);
         }
       });
       return () => {
         socket.disconnect();
+        socket.off('getUsers');
       };
     } else {
       console.log('No user');
@@ -61,7 +64,11 @@ export const Chat: React.FC<IChat> = ({ user }) => {
   useEffect(() => {
     socket.on('getFinalUsers', (users) => {
       if (user) {
-        if (users.some((value: string, index: number) => value !== onlineRef.current[index])) {
+        console.log(users);
+        if (
+          users.length !== onlineRef.current.length ||
+          users.every((value: string, index: number) => value !== onlineRef.current[index])
+        ) {
           setOnline(users);
         }
         if (
@@ -78,7 +85,7 @@ export const Chat: React.FC<IChat> = ({ user }) => {
       }
     });
     return () => {
-      socket.off('getUsers');
+      socket.off('getFinalUsers');
     };
   }, [user, online]);
 
