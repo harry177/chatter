@@ -30,6 +30,7 @@ interface ClientToServerEvents {
   ) => void;
   allUsers: (a: string[]) => void;
   getUsers: (data: string[]) => void;
+  getFinalUsers: (data: string[]) => void;
 }
 
 dotenv.config();
@@ -209,7 +210,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     users.splice(users.indexOf(socket.data.username), 1);
-    io.emit('getUsers', users);
+    io.emit('getFinalUsers', users);
     console.log('🔥: A user disconnected');
   });
 });
