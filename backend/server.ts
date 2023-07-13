@@ -31,6 +31,7 @@ interface ClientToServerEvents {
   allUsers: (a: string[]) => void;
   getUsers: (data: string[]) => void;
   getFinalUsers: (data: string[]) => void;
+  newReconnect: () => void;
 }
 
 dotenv.config();
@@ -83,6 +84,8 @@ const users: string[] = [];
 
 io.on('connection', (socket) => {
   console.log('socket connect successful');
+
+  socket.emit('newReconnect');
 
   socket.on('addUser', (newUser) => {
     if (!users.some((user) => user === newUser)) {

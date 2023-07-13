@@ -13,7 +13,7 @@ export const Chat: React.FC<IChat> = ({ user }) => {
   const [state, setState] = useState('');
   const [chat, setChat] = useState('');
 
-  const [connect, setConnect] = useState(false);
+  //const [connect, setConnect] = useState(false);
 
   const [online, setOnline] = useState<string[]>([]);
   const onlineRef = useRef<string[]>(online);
@@ -53,7 +53,7 @@ export const Chat: React.FC<IChat> = ({ user }) => {
     } else {
       console.log('No user');
     }
-  }, [user, connect]);
+  }, [user]);
 
   useEffect(() => {
     if (!user) {
@@ -78,7 +78,11 @@ export const Chat: React.FC<IChat> = ({ user }) => {
           user !== ''
         ) {
           //online.length !== 0 ? setOnline([]) : console.log(online);
-          setConnect((prevState) => !prevState);
+          //setConnect((prevState) => !prevState);
+          socket.on('newReconnect', () => {
+            socket.auth = { user };
+            socket.emit('addUser', user);
+          });
         }
       } else {
         setChat('');
@@ -86,6 +90,7 @@ export const Chat: React.FC<IChat> = ({ user }) => {
     });
     return () => {
       socket.off('getFinalUsers');
+      socket.off('newReconnect');
     };
   }, [user, online]);
 
