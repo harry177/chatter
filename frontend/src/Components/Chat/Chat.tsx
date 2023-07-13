@@ -36,7 +36,11 @@ export const Chat: React.FC<IChat> = ({ user }) => {
       console.log('User active!');
       socket.auth = { user };
       socket.connect();
-      socket.emit('addUser', user);
+
+      socket.on('newConnect', () => {
+        socket.emit('addUser', user);
+      });
+
       socket.on('getUsers', (users) => {
         console.log(users);
         if (
@@ -46,8 +50,10 @@ export const Chat: React.FC<IChat> = ({ user }) => {
           setOnline(users);
         }
       });
+
       return () => {
         socket.disconnect();
+        socket.off('newConnect');
         socket.off('getUsers');
       };
     } else {
@@ -65,13 +71,14 @@ export const Chat: React.FC<IChat> = ({ user }) => {
     socket.on('getFinalUsers', (users) => {
       if (user) {
         console.log(users);
+        socket.auth = { user };
         if (
           users.length !== onlineRef.current.length ||
           users.every((value: string, index: number) => value !== onlineRef.current[index])
         ) {
           setOnline(users);
         }
-        if (
+        /*if (
           !users.find((mainUser: string) => {
             mainUser === user;
           }) &&
@@ -79,12 +86,11 @@ export const Chat: React.FC<IChat> = ({ user }) => {
         ) {
           //online.length !== 0 ? setOnline([]) : console.log(online);
           //setConnect((prevState) => !prevState);
-          socket.connect();
           socket.on('newReconnect', () => {
             socket.auth = { user };
             socket.emit('addUser', user);
           });
-        }
+        }*/
       } else {
         setChat('');
       }
@@ -93,7 +99,7 @@ export const Chat: React.FC<IChat> = ({ user }) => {
       socket.off('getFinalUsers');
       socket.off('newReconnect');
     };
-  }, [user, online]);
+  }, [user]);
 
   console.log(user);
   console.log(online);
