@@ -79,6 +79,7 @@ export const Chat: React.FC<IChat> = ({ user }) => {
         ) {
           //online.length !== 0 ? setOnline([]) : console.log(online);
           //setConnect((prevState) => !prevState);
+          socket.connect();
           socket.on('newReconnect', () => {
             socket.auth = { user };
             socket.emit('addUser', user);
