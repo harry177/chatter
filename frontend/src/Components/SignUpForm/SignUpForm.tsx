@@ -69,7 +69,7 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
       <input
         type="text"
         id="username"
-        {...register('nameLabel', { required: true, minLength: 3 })}
+        {...register('nameLabel', { required: true, minLength: 3, maxLength: 12 })}
         onChange={handleName}
         className="form-field username-input"
       ></input>
@@ -78,6 +78,9 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
       )}
       {errors?.nameLabel?.type === 'minLength' && (
         <span>The length of name must be at least 3 characters long. Try again</span>
+      )}
+      {errors?.nameLabel?.type === 'maxLength' && (
+        <span>The length of name can`t be more than 12 characters long. Try again</span>
       )}
       <label htmlFor="email">Email</label>
       <input
