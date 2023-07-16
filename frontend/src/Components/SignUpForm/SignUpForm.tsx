@@ -1,5 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { SignUpPopover } from '../SignUpPopover/SignUpPopover';
+
 import './SignUpForm.styles.scss';
 
 interface IProps {
@@ -109,13 +111,16 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
         <span>The length of name must be at least 5 characters long. Try again</span>
       )}
       <label htmlFor="confirm">Confirmation</label>
-      <input
-        type="checkbox"
-        id="confirm"
-        {...register('confirmLabel', { required: true })}
-        onChange={handleConfirm}
-        className={confirm ? 'form-field confirm-active' : 'form-field confirm-input'}
-      ></input>
+      <div className="form-confirm">
+        <input
+          type="checkbox"
+          id="confirm"
+          {...register('confirmLabel', { required: true })}
+          onChange={handleConfirm}
+          className={confirm ? 'form-field confirm-active' : 'form-field confirm-input'}
+        ></input>
+        <SignUpPopover />
+      </div>
       {errors?.confirmLabel?.type === 'required' && (
         <span>The field cannot be empty. To enter, you should read and approve conditions</span>
       )}

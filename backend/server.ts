@@ -2,37 +2,10 @@ import mongoose from 'mongoose';
 import express from 'express';
 import path from 'path';
 import { router } from './router';
-import { User, messageStack } from './model';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import bodyParser, { OptionsUrlencoded } from 'body-parser';
-import { Server } from 'socket.io';
-
-interface SocketData {
-  username: string;
-  joinRoom: (data: { user: string; speaker: string; formerSpeaker: string; room: string }) => void;
-  getAll: () => void;
-  chatMessage: (data: { user: string; speaker: string; message: string }) => void;
-  addUser: (data: string) => void;
-}
-
-interface ServerToClientEvents {
-  noArg: () => void;
-  basicEmit: (a: number, b: string, c: Buffer) => void;
-  withAck: (d: string, callback: (e: number) => void) => void;
-  note: (f: string[]) => string[];
-}
-
-interface ClientToServerEvents {
-  note: (f: string[]) => void;
-  messageStack: (
-    data: { hero?: string | undefined; comment?: string | undefined }[] | undefined
-  ) => void;
-  allUsers: (a: string[]) => void;
-  getUsers: (data: string[]) => void;
-  getFinalUsers: (data: string[]) => void;
-  newConnect: () => void;
-}
+import { socketServer } from './socketServer';
 
 dotenv.config();
 const app = express();
@@ -64,7 +37,8 @@ app.get('*', (req, res) =>
 );
 
 const superServer = app.listen(PORT);
-const io = new Server<SocketData, ClientToServerEvents, ServerToClientEvents>(superServer, {
+socketServer(superServer, PORT);
+/*const io = new Server<SocketData, ClientToServerEvents>(superServer, {
   cors: {
     origin: '*',
   },
@@ -164,7 +138,7 @@ io.on('connection', (socket) => {
   socket.on('getAll', async () => {
     const resultedUsers = [];
     const users = await User.find({});
-    //const range = Object.values(users);
+
     for (const i of users) {
       resultedUsers.push(users[users.indexOf(i)].name);
     }
@@ -177,7 +151,7 @@ io.on('connection', (socket) => {
     io.emit('getFinalUsers', users);
     console.log('🔥: A user disconnected');
   });
-});
+});*/
 
 process.on('SIGINT', async () => {
   await mongoose.disconnect();

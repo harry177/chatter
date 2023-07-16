@@ -15,6 +15,12 @@
     border-radius: 5px;
 }
 
+.form-confirm {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+}
+
 .submit-button {
     border: 1px solid plum;
     border-radius: 5px;
@@ -23,6 +29,10 @@
 .confirm-active {
     height: 50px;
     background-color: green;
+}
+
+.confirm-input {
+    width: 50%;
 }
 
 .error-handler {
