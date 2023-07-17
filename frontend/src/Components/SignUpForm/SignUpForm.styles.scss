@@ -1,40 +1,70 @@
+span {
+  font-size: 12px;
+  color: red;
+}
+
 .form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 30%;
-    border: 2px solid plum;
-    border-radius: 20px;
-    row-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  border: 2px solid plum;
+  border-radius: 20px;
+  row-gap: 20px;
 }
 
 .form-field {
-    width: 70%;
-    border: 1px solid plum;
-    border-radius: 5px;
+  width: 70%;
+  border: 1px solid plum;
+  border-radius: 5px;
 }
 
 .form-confirm {
-    width: 80%;
-    display: flex;
-    justify-content: space-around;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.submit-button {
-    border: 1px solid plum;
-    border-radius: 5px;
-}
-
-.confirm-active {
-    height: 50px;
-    background-color: green;
+.form-buttons {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
 }
 
 .confirm-input {
-    width: 50%;
+  width: 50%;
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: plum;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid plum;
+  border-radius: 0.15em;
+  display: grid;
+  place-content: center;
+}
+
+.confirm-input::before {
+  content: '';
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--form-control-color);
+  background-color: plum;
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.confirm-input:checked::before {
+  transform: scale(1);
 }
 
 .error-handler {
-    margin: 0 auto;;
+  margin: 0 auto;
 }

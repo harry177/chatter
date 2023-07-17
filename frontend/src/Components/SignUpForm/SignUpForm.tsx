@@ -3,6 +3,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { SignUpPopover } from '../SignUpPopover/SignUpPopover';
 
 import './SignUpForm.styles.scss';
+import { FormButton } from '../FormButton/FormButton';
 
 interface IProps {
   dispatchName: React.Dispatch<React.SetStateAction<string>>;
@@ -117,18 +118,16 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
           id="confirm"
           {...register('confirmLabel', { required: true })}
           onChange={handleConfirm}
-          className={confirm ? 'form-field confirm-active' : 'form-field confirm-input'}
+          className="confirm-input"
         ></input>
         <SignUpPopover />
       </div>
       {errors?.confirmLabel?.type === 'required' && (
         <span>The field cannot be empty. To enter, you should read and approve conditions</span>
       )}
-      <div>
-        <button type="submit" className="submit-button">
-          Submit
-        </button>
-        <button onClick={handleMove}>Move to Login</button>
+      <div className="form-buttons">
+        <FormButton buttonType="submit" buttonText="Submit" />
+        <FormButton buttonType="button" buttonText="Move to login" clickFunction={handleMove} />
       </div>
     </form>
   );

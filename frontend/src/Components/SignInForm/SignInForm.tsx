@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
-import './SignInForm.styles.scss';
+import '../SignUpForm/SignUpForm.styles.scss';
+import { FormButton } from '../FormButton/FormButton';
 
 interface IProps {
   setProps: React.Dispatch<React.SetStateAction<string>>;
@@ -59,7 +60,7 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
         onChange={handleEmail}
         className="form-field email-input"
       ></input>
-      {isEmail}
+      <span>{isEmail}</span>
       <label htmlFor="password">Password</label>
       <input
         type="text"
@@ -67,12 +68,10 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
         onChange={handlePass}
         className="form-field password-input"
       ></input>
-      {isPassword}
-      <div>
-        <button type="submit" className="submit-button">
-          Submit
-        </button>
-        <button onClick={handleBack}>Move to SignUp</button>
+      <span>{isPassword}</span>
+      <div className="form-buttons">
+        <FormButton buttonType="submit" buttonText="Submit" />
+        <FormButton buttonType="button" buttonText="Move to signup" clickFunction={handleBack} />
       </div>
     </form>
   );
