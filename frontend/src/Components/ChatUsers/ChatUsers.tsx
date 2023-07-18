@@ -32,17 +32,19 @@ export const ChatUsers: React.FC<IChatUsers> = memo(({ dispatchChatState, online
 
   return (
     <div className="chat-users">
-      {allUsers &&
-        allUsers.map((user) => {
-          return (
-            <UserItem
-              key={allUsers.indexOf(user)}
-              userName={user}
-              dispatchChat={dispatchChatState}
-              online={online.includes(user)}
-            />
-          );
-        })}
+      <div className="chat-users__inner">
+        {allUsers &&
+          allUsers.map((user) => {
+            return (
+              <UserItem
+                key={allUsers.indexOf(user)}
+                userName={user}
+                dispatchChat={dispatchChatState}
+                online={online.includes(user)}
+              />
+            );
+          })}
+      </div>
     </div>
   );
 });

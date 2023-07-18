@@ -15,11 +15,13 @@ export const UserItem: React.FC<IUserItem> = memo(({ userName, dispatchChat, onl
   console.log(userName);
 
   return (
-    <div className={online ? 'user-online' : 'user-item'} onClick={selectChat}>
-      <div className="user-item__avatar"></div>
-      <div className="user-item__main">
-        <div className="user-item__name">{userName}</div>
-        <div className="user-item__message"></div>
+    <div className="user-item__container">
+      <div className={online ? 'user-online' : 'user-item'} onClick={selectChat}>
+        <div className="user-item__avatar"></div>
+        <div className="user-item__main">
+          <div className="user-item__name">{userName}</div>
+          <div className="user-item__message"></div>
+        </div>
       </div>
     </div>
   );

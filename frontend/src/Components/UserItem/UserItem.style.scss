@@ -1,6 +1,14 @@
-.user-item {
+.user-item__container {
     width: 90%;
-    height: 10%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-item {
+    width: 100%;
+    height: 40px;
     background-color: white;
     border-radius: 10px;
     text-align: center;
@@ -11,7 +19,7 @@
 
 .user-online {
     width: 90%;
-    height: 10%;
+    height: 40px;
     background-color: lightgreen;
     border-radius: 10px;
     text-align: center;

@@ -49,7 +49,15 @@ export const socketServer = (server: http.Server, PORT: string | number) => {
 
     socket.emit('newConnect');
 
-    socket.on('addUser', (newUser) => {
+    socket.on('addUser', async (newUser) => {
+      const resultedUsers = [];
+      const allUsers = await User.find({});
+
+      for (const i of allUsers) {
+        resultedUsers.push(allUsers[allUsers.indexOf(i)].name);
+      }
+      io.emit('allUsers', resultedUsers);
+
       if (!users.some((user) => user === newUser)) {
         users.push(newUser);
       }
