@@ -11,7 +11,6 @@ interface IChatMessage {
 }
 
 export const ChatMessage: React.FC<IChatMessage> = ({ mail, online, user }) => {
-  //const user = localStorage.getItem('user');
   return (
     <div className={mail.hero === user ? 'chat-item__hero' : 'chat-item__npc'}>
       <div className="chat-message__container">

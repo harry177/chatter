@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
 import './ChatInput.styles.scss';
 
 interface IStorage {
@@ -21,10 +21,23 @@ export const ChatInput: React.FC<IStorage> = ({ setStorage, chatSpeaker }) => {
     }
   };
 
+  const handleEnter = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && state) {
+      setStorage(state);
+      setState('');
+    }
+  };
+
   if (!chatSpeaker) return null;
   return (
     <div className="chat-input">
-      <input className="chat-input__field" type="text" onChange={handleInput} value={state}></input>
+      <input
+        className="chat-input__field"
+        type="text"
+        onChange={handleInput}
+        onKeyDown={handleEnter}
+        value={state}
+      ></input>
       <button className="chat-input__button" type="submit" onClick={handleClick}>
         Send
       </button>
