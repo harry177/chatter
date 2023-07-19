@@ -138,7 +138,7 @@ export const socketServer = (server: http.Server, PORT: string | number) => {
       for (const i of users) {
         resultedUsers.push(users[users.indexOf(i)].name);
       }
-      io.to(socket.id).emit('allUsers', resultedUsers);
+      io.emit('allUsers', resultedUsers);
     });
 
     socket.on('disconnect', () => {

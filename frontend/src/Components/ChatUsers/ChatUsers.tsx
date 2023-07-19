@@ -14,19 +14,24 @@ export const ChatUsers: React.FC<IChatUsers> = memo(({ dispatchChatState, online
 
   useEffect(() => {
     socket.emit('getAll');
-  }, [user]);
+  }, [user, online]);
 
   useEffect(() => {
     socket.on('allUsers', (data) => {
       const dataResult = data.filter((username: string) => username !== user);
-      if (allUsers !== dataResult) {
-        setAllUsers(dataResult);
+      const dataOnline = online.filter((username: string) => username !== user);
+      const finalDataResult = dataOnline.concat(
+        dataResult.filter((elem: string) => !dataOnline.includes(elem))
+      );
+      if (allUsers !== finalDataResult) {
+        setAllUsers(finalDataResult);
+        console.log(finalDataResult);
       }
     });
     return () => {
       socket.off('allUsers');
     };
-  }, [allUsers, user]);
+  }, [allUsers, user, online]);
 
   console.log(user);
 

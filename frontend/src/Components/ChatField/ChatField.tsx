@@ -16,8 +16,6 @@ interface IMessage {
 }
 
 export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, online, user }) => {
-  //const user = localStorage.getItem('user');
-
   const [state, setState] = useState<IMessage[]>([]);
   const [chatter, setChatter] = useState('');
 
