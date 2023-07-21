@@ -1,23 +1,33 @@
+.general__chat-input {
+  width: 100%;
+  height: 15%;
+  background: linear-gradient(to top left, powderblue, pink);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .chat-input {
-    width: 100%;
-    height: 15%;
-    border: black 1px solid;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  width: 98.8%;
+  height: 90%;
+  background: plum;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .chat-input__field {
-    width: 80%;
-    height: 80%;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    background-color: lightpink;
+  width: 80%;
+  height: 80%;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background-color: plum;
 }
 
 .chat-input__button {
-    width: 70px;
-    height: 80%;
+  width: 70px;
+  height: 80%;
 }

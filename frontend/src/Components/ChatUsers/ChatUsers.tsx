@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
+import { motion, Reorder, useDragControls } from 'framer-motion';
 import { UserItem } from '../UserItem/UserItem';
 import { socket } from '../../socket';
 import './ChatUsers.styles.scss';
@@ -35,20 +36,46 @@ export const ChatUsers: React.FC<IChatUsers> = memo(({ dispatchChatState, online
 
   console.log(user);
 
+  const controls = useDragControls();
+
   return (
     <div className="chat-users">
       <div className="chat-users__inner">
-        {allUsers &&
-          allUsers.map((user) => {
-            return (
-              <UserItem
-                key={allUsers.indexOf(user)}
-                userName={user}
-                dispatchChat={dispatchChatState}
-                online={online.includes(user)}
-              />
-            );
-          })}
+        <div className="chat-users__inner-container">
+          <Reorder.Group
+            as="div"
+            axis="y"
+            layoutScroll
+            values={allUsers}
+            onReorder={setAllUsers}
+            style={{ listStyleType: 'none', width: '100%' }}
+          >
+            {allUsers &&
+              allUsers.map((user) => {
+                return (
+                  <Reorder.Item
+                    key={user}
+                    value={user}
+                    dragControls={controls}
+                    dragListener={false}
+                  >
+                    <motion.div
+                      key={allUsers.indexOf(user)}
+                      layout
+                      transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                      style={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                      <UserItem
+                        userName={user}
+                        dispatchChat={dispatchChatState}
+                        online={online.includes(user)}
+                      />
+                    </motion.div>
+                  </Reorder.Item>
+                );
+              })}
+          </Reorder.Group>
+        </div>
       </div>
     </div>
   );

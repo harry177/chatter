@@ -30,17 +30,19 @@ export const ChatInput: React.FC<IStorage> = ({ setStorage, chatSpeaker }) => {
 
   if (!chatSpeaker) return null;
   return (
-    <div className="chat-input">
-      <input
-        className="chat-input__field"
-        type="text"
-        onChange={handleInput}
-        onKeyDown={handleEnter}
-        value={state}
-      ></input>
-      <button className="chat-input__button" type="submit" onClick={handleClick}>
-        Send
-      </button>
+    <div className="general__chat-input">
+      <div className="chat-input">
+        <input
+          className="chat-input__field"
+          type="text"
+          onChange={handleInput}
+          onKeyDown={handleEnter}
+          value={state}
+        ></input>
+        <button className="chat-input__button" type="submit" onClick={handleClick}>
+          Send
+        </button>
+      </div>
     </div>
   );
 };

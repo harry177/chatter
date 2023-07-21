@@ -64,23 +64,25 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, onl
   console.log(user);
 
   return (
-    <div className={chatSpeaker ? 'chat-field' : 'blank-field'}>
-      {!chatSpeaker && 'To start chat select user from the left panel'}
-      {chatSpeaker && (
-        <div className="chat-body" ref={bottom}>
-          {(storage || chatSpeaker) &&
-            state.map((message) => {
-              return (
-                <ChatMessage
-                  key={state.indexOf(message)}
-                  mail={message}
-                  online={online}
-                  user={user}
-                />
-              );
-            })}
-        </div>
-      )}
+    <div className="general-field">
+      <div className={chatSpeaker ? 'chat-field' : 'blank-field'}>
+        {!chatSpeaker && 'To start chat select user from the left panel'}
+        {chatSpeaker && (
+          <div className="chat-body" ref={bottom}>
+            {(storage || chatSpeaker) &&
+              state.map((message) => {
+                return (
+                  <ChatMessage
+                    key={state.indexOf(message)}
+                    mail={message}
+                    online={online}
+                    user={user}
+                  />
+                );
+              })}
+          </div>
+        )}
+      </div>
     </div>
   );
 });
