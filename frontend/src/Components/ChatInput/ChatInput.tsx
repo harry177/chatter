@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
 import './ChatInput.styles.scss';
+import { ChatButton } from '../ChatButton/ChatButton';
 
 interface IStorage {
   setStorage: React.Dispatch<React.SetStateAction<string>>;
@@ -39,9 +40,7 @@ export const ChatInput: React.FC<IStorage> = ({ setStorage, chatSpeaker }) => {
           onKeyDown={handleEnter}
           value={state}
         ></input>
-        <button className="chat-input__button" type="submit" onClick={handleClick}>
-          Send
-        </button>
+        <ChatButton buttonType="submit" buttonText="Send" clickFunction={handleClick} />
       </div>
     </div>
   );
