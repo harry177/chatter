@@ -93,7 +93,12 @@ export const Chat: React.FC<IChat> = ({ user }) => {
   if (!user) return null;
   return (
     <div className="chat">
-      <ChatUsers dispatchChatState={handleChatState} online={online} user={user} />
+      <ChatUsers
+        dispatchChatState={handleChatState}
+        chatSpeaker={chat}
+        online={online}
+        user={user}
+      />
       <div className="right-chat__block">
         <ChatField storage={state} chatSpeaker={chat} online={online} user={user} />
         <ChatInput setStorage={handleStorageChange} chatSpeaker={chat} />

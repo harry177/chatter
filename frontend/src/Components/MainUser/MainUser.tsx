@@ -18,7 +18,7 @@ export const MainUser: React.FC<IMainUser> = ({ user, dispatchExit }) => {
       <div className="main-user__info">
         <div>{user}</div>
       </div>
-      <ChatButton buttonType="button" buttonText="Exit" clickFunction={logOut} />
+      <ChatButton buttonType="button" buttonText="Exit" clickFunction={logOut} style={'30px'} />
     </div>
   );
 };

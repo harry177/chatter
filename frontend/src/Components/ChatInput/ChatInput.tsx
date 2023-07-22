@@ -40,7 +40,12 @@ export const ChatInput: React.FC<IStorage> = ({ setStorage, chatSpeaker }) => {
           onKeyDown={handleEnter}
           value={state}
         ></input>
-        <ChatButton buttonType="submit" buttonText="Send" clickFunction={handleClick} />
+        <ChatButton
+          buttonType="submit"
+          buttonText="Send"
+          clickFunction={handleClick}
+          style={'15px'}
+        />
       </div>
     </div>
   );
