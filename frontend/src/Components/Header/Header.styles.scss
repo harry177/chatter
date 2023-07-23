@@ -10,6 +10,11 @@
     position: absolute;
     font-size: 30px;
     z-index: 20;
+
+    @media (max-width: 450px) {
+      height: 40px;
+      font-size: 20px;
+    }
   }
 
   .header-container {

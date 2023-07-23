@@ -6,4 +6,9 @@
     height: inherit;
     position: relative;
     background: linear-gradient(to top left, powderblue, pink);
+
+    @media (max-width: 767px) {
+        flex-direction: column;
+        justify-content: center;
+      }
 }

@@ -12,6 +12,18 @@ span {
   border: 2px solid plum;
   border-radius: 20px;
   row-gap: 20px;
+
+  @media (max-width: 1023px) {
+    width: 40%;
+  }
+  @media (max-width: 767px) {
+    margin-bottom: 100px;
+    width: 320px;
+  }
+  @media (max-width: 450px) {
+    margin-bottom: 100px;
+    width: 260px;
+  }
 }
 
 .form-field {
@@ -32,6 +44,12 @@ span {
   display: flex;
   justify-content: space-around;
   margin-bottom: 10px;
+
+  @media (max-width: 450px) {
+    height: 100px;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .confirm-input {
