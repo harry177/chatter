@@ -1,0 +1,12 @@
+.selected-user {
+    width: 98.5%;
+    height: 15%;
+    border: 2px solid plum;
+    border-radius: 10px;
+    background: linear-gradient(to top left, powderblue, pink);
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 30;
+}

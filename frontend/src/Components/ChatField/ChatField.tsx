@@ -2,6 +2,7 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 import './ChatField.styles.scss';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import { socket } from '../../socket';
+import { SelectedUser } from '../SelectedUser/SelectedUser';
 
 interface IChatField {
   storage: string;
@@ -68,19 +69,22 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, onl
       <div className={chatSpeaker ? 'chat-field' : 'blank-field'}>
         {!chatSpeaker && 'To start chat select user from the left panel'}
         {chatSpeaker && (
-          <div className="chat-body" ref={bottom}>
-            {(storage || chatSpeaker) &&
-              state.map((message) => {
-                return (
-                  <ChatMessage
-                    key={state.indexOf(message)}
-                    mail={message}
-                    online={online}
-                    user={user}
-                  />
-                );
-              })}
-          </div>
+          <>
+            <SelectedUser chat={chatSpeaker} online={online} />
+            <div className="chat-body" ref={bottom}>
+              {(storage || chatSpeaker) &&
+                state.map((message) => {
+                  return (
+                    <ChatMessage
+                      key={state.indexOf(message)}
+                      mail={message}
+                      online={online}
+                      user={user}
+                    />
+                  );
+                })}
+            </div>
+          </>
         )}
       </div>
     </div>
