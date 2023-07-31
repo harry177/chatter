@@ -14,12 +14,22 @@ export const App = () => {
   const viewportMeta = useRef() as MutableRefObject<HTMLMetaElement>;
   let isZoomAllowed = true;
 
-  function handleInputTouchStart(): void {
+  function handleInputStart(): void {
     isZoomAllowed = false;
     viewportMeta.current.setAttribute('user-scalable', 'no');
   }
 
-  function handleInputTouchEnd(): void {
+  function handleInputEnd(): void {
+    isZoomAllowed = true;
+    viewportMeta.current.setAttribute('user-scalable', 'yes');
+  }
+
+  function handleInputFocus(): void {
+    isZoomAllowed = false;
+    viewportMeta.current.setAttribute('user-scalable', 'no');
+  }
+
+  function handleInputBlur(): void {
     isZoomAllowed = true;
     viewportMeta.current.setAttribute('user-scalable', 'yes');
   }
@@ -35,16 +45,24 @@ export const App = () => {
 
     const inputs = document.querySelectorAll('input');
     inputs.forEach((input) => {
-      input.addEventListener('touchstart', handleInputTouchStart);
-      input.addEventListener('touchend', handleInputTouchEnd);
+      input.addEventListener('touchstart', handleInputStart);
+      input.addEventListener('mousedown', handleInputStart);
+      input.addEventListener('touchend', handleInputEnd);
+      input.addEventListener('mouseup', handleInputEnd);
+      input.addEventListener('focus', handleInputFocus);
+      input.addEventListener('blur', handleInputBlur);
     });
 
     document.addEventListener('touchmove', handleDocumentTouchMove, { passive: false });
 
     return () => {
       inputs.forEach((input) => {
-        input.removeEventListener('touchstart', handleInputTouchStart);
-        input.removeEventListener('touchend', handleInputTouchEnd);
+        input.removeEventListener('touchstart', handleInputStart);
+        input.removeEventListener('mousedown', handleInputStart);
+        input.removeEventListener('touchend', handleInputEnd);
+        input.removeEventListener('mouseup', handleInputEnd);
+        input.removeEventListener('focus', handleInputFocus);
+        input.removeEventListener('blur', handleInputBlur);
       });
 
       document.removeEventListener('touchmove', handleDocumentTouchMove);
