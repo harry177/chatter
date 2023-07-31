@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import './ChatField.styles.scss';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import { socket } from '../../socket';
@@ -19,6 +20,8 @@ interface IMessage {
 export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, online, user }) => {
   const [state, setState] = useState<IMessage[]>([]);
   const [chatter, setChatter] = useState('');
+
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
   useEffect(() => {
     if (user && chatSpeaker) {
@@ -67,7 +70,11 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, onl
   return (
     <div className="general-field">
       <div className={chatSpeaker ? 'chat-field' : 'blank-field'}>
-        {!chatSpeaker && 'To start chat select user from the left panel'}
+        {!chatSpeaker && !isTabletOrMobile
+          ? 'To start chat select user from the left panel'
+          : !chatSpeaker && isTabletOrMobile
+          ? 'To start chat click "Show users" above and select user'
+          : ''}
         {chatSpeaker && (
           <>
             <SelectedUser chat={chatSpeaker} online={online} />

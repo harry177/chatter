@@ -6,6 +6,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 450px) {
+    height: 10%;
+  }
 }
 
 .chat-input {

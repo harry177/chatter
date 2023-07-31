@@ -7,6 +7,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 450px) {
+    height: 87%;
+  }
 }
 
 .chat-field {
@@ -23,11 +27,13 @@
   background: plum;
   border-radius: 10px;
   text-align: center;
-  line-height: 12;
   font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @media (max-width: 767px) {
-    line-height: 5;
+    font-size: 25px;
   }
 }
 

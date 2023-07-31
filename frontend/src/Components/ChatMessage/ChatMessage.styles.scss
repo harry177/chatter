@@ -4,6 +4,10 @@
   padding-left: 7px;
   padding-right: 7px;
   max-width: 80%;
+
+  @media (max-width: 450px) {
+    font-size: 12px;
+  }
 }
 
 .chat-message__container {
