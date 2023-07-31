@@ -25,6 +25,10 @@
   text-align: center;
   line-height: 12;
   font-size: 30px;
+
+  @media (max-width: 767px) {
+    line-height: 5;
+  }
 }
 
 .chat-field::-webkit-scrollbar {
