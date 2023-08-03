@@ -55,6 +55,8 @@ export const Chat: React.FC<IChat> = ({ user }) => {
       };
     } else {
       console.log('No user');
+      setState('');
+      setChat('');
     }
   }, [user]);
 
