@@ -10,11 +10,6 @@ interface SocketData {
   addUser: (data: string) => void;
 }
 
-/*interface ServerToClientEvents {
-    basicEmit: (a: number, b: string, c: Buffer) => void;
-    withAck: (d: string, callback: (e: number) => void) => void;
-  }*/
-
 interface ClientToServerEvents {
   messageStack: (
     data: { hero?: string | undefined; comment?: string | undefined }[] | undefined

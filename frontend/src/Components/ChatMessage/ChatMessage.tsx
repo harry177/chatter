@@ -13,7 +13,11 @@ interface IChatMessage {
 export const ChatMessage: React.FC<IChatMessage> = ({ mail, online, user }) => {
   return (
     <div className={mail.hero === user ? 'chat-item__hero' : 'chat-item__npc'}>
-      <div className="chat-message__container">
+      <div
+        className={
+          mail.hero === user ? 'chat-message__container-right' : 'chat-message__container-left'
+        }
+      >
         <div
           className={online.includes(mail.hero) ? 'main-user__image-active' : 'main-user__image'}
         />

@@ -45,10 +45,15 @@ router.post('/register', async (req, res) => {
     return res.json({ message: 'User with such email is aready existed' });
   }
   if (!tryEmail) {
-    const hashPass = bcrypt.hashSync(password, 7);
-    const user = new User({ name: name, email: email, password: hashPass });
-    user.save();
-    const token = createEntryToken(user._id);
-    res.send({ user: user, token: token });
+    const tryName = await User.findOne({ name });
+    if (tryName) {
+      return res.json({ message: 'User with such name is aready existed' });
+    } else {
+      const hashPass = bcrypt.hashSync(password, 7);
+      const user = new User({ name: name, email: email, password: hashPass });
+      user.save();
+      const token = createEntryToken(user._id);
+      res.send({ user: user, token: token });
+    }
   }
 });

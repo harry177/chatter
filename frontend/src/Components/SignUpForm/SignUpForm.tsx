@@ -17,6 +17,7 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
   const [confirm, setConfirm] = useState(false);
 
   const [isEmail, setIsEmail] = useState('');
+  const [isName, setIsName] = useState('');
 
   const handleForm: SubmitHandler<FieldValues> = () => {
     createUser();
@@ -54,6 +55,9 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
     if (user.message === 'User with such email is aready existed') {
       setIsEmail(user.message);
     }
+    if (user.message === 'User with such name is aready existed') {
+      setIsName(user.message);
+    }
     if (user.user) {
       dispatchName(user.user.name);
       console.log(user.token);
@@ -85,6 +89,7 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
       {errors?.nameLabel?.type === 'maxLength' && (
         <span>The length of name can`t be more than 12 characters long. Try again</span>
       )}
+      {isName}
       <label htmlFor="email">Email</label>
       <input
         type="email"
