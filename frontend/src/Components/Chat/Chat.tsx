@@ -46,9 +46,10 @@ export const Chat: React.FC<IChat> = ({ user }) => {
         ) {
           setOnline(users);
         }
-        if (chat) {
-          const room = [user, chat].sort((a, b) => (a < b ? -1 : 1)).join('');
-          socket.emit('joinRoom', { user, speaker: chat, room });
+        const currentChat = sessionStorage.getItem('chat');
+        if (currentChat) {
+          const room = [user, currentChat].sort((a, b) => (a < b ? -1 : 1)).join('');
+          socket.emit('joinRoom', { user, speaker: currentChat, formerSpeaker: '', room });
         }
       });
 

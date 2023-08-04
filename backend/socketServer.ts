@@ -58,13 +58,17 @@ export const socketServer = (server: http.Server, PORT: string | number) => {
       }
       users.sort((a, b) => (a < b ? -1 : 1));
       io.emit('getUsers', users);
+      console.log(users);
     });
-
-    console.log(users);
 
     socket.on('joinRoom', async (data) => {
       if (data.formerSpeaker) {
         socket.leave([data.user, data.formerSpeaker].sort((a, b) => (a < b ? -1 : 1)).join(''));
+        console.log(
+          `${data.user} leaves room: ${[data.user, data.formerSpeaker]
+            .sort((a, b) => (a < b ? -1 : 1))
+            .join('')}`
+        );
       }
       try {
         const resultedChat = await messageStack.findOne({
@@ -92,6 +96,22 @@ export const socketServer = (server: http.Server, PORT: string | number) => {
       } catch (e) {
         console.error(e);
       }
+      // Получение списка активных комнат
+      const activeRooms = [];
+
+      for (const [room, _] of io.sockets.adapter.rooms.entries()) {
+        const socketsInRoom = io.sockets.adapter.rooms.get(room);
+
+        if (socketsInRoom && socketsInRoom.size > 0) {
+          activeRooms.push(room);
+        }
+      }
+
+      // Вывод списка активных комнат в консоль
+      console.log('Active chat rooms:');
+      activeRooms.forEach((room) => {
+        console.log(room);
+      });
     });
 
     socket.on('chatMessage', async (data) => {
@@ -141,6 +161,23 @@ export const socketServer = (server: http.Server, PORT: string | number) => {
       users.sort((a, b) => (a < b ? -1 : 1));
       io.emit('getFinalUsers', users);
       console.log('🔥: A user disconnected');
+      console.log(users);
+      // Получение списка активных комнат
+      const activeRooms = [];
+
+      for (const [room, _] of io.sockets.adapter.rooms.entries()) {
+        const socketsInRoom = io.sockets.adapter.rooms.get(room);
+
+        if (socketsInRoom && socketsInRoom.size > 0) {
+          activeRooms.push(room);
+        }
+      }
+
+      // Вывод списка активных комнат в консоль
+      console.log('Active chat rooms:');
+      activeRooms.forEach((room) => {
+        console.log(room);
+      });
     });
   });
 };

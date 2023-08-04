@@ -11,6 +11,10 @@ export const App = () => {
     setData(data);
   };
 
+  if (!data) {
+    sessionStorage.removeItem('chat');
+  }
+
   return (
     <div className="general">
       <Header dispatchExit={handleDataChange} user={data} />

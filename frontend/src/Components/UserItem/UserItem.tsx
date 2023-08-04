@@ -14,6 +14,7 @@ export const UserItem: React.FC<IUserItem> = memo(({ userName, dispatchChat, onl
   };
 
   console.log(userName);
+  sessionStorage.setItem('chat', chat);
 
   return (
     <div className="user-item__container">

@@ -32,7 +32,6 @@ export const ChatUsers: React.FC<IChatUsers> = memo(
         );
         if (allUsers !== finalDataResult) {
           setAllUsers(finalDataResult);
-          console.log(finalDataResult);
         }
       });
       return () => {
