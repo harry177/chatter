@@ -47,7 +47,6 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
       setIsPassword(user.message);
     } else {
       setProps(user.name);
-      console.log(user.token);
     }
   };
 
