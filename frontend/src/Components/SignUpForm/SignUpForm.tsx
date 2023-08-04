@@ -104,7 +104,7 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
       {isEmail}
       <label htmlFor="password">Password</label>
       <input
-        type="text"
+        type="password"
         id="password"
         {...register('passLabel', { required: true, minLength: 5 })}
         onChange={handlePass}

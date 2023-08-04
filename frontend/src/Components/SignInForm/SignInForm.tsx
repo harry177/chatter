@@ -63,7 +63,7 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
       <span>{isEmail}</span>
       <label htmlFor="password">Password</label>
       <input
-        type="text"
+        type="password"
         id="password"
         onChange={handlePass}
         className="form-field password-input"
