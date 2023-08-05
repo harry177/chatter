@@ -1,16 +1,16 @@
 import React, { ChangeEvent, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { SignUpPopover } from '../SignUpPopover/SignUpPopover';
-
-import './SignUpForm.styles.scss';
 import { FormButton } from '../FormButton/FormButton';
+import { useAppDispatch } from '../../app/hooks';
+import { toggleUser } from '../../features/slices/userSlice';
+import './SignUpForm.styles.scss';
 
 interface IProps {
-  dispatchName: React.Dispatch<React.SetStateAction<string>>;
   dispatchBack: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchBack }) => {
+export const SignUpForm: React.FC<IProps> = ({ dispatchBack }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -18,6 +18,8 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchBack }) => 
 
   const [isEmail, setIsEmail] = useState('');
   const [isName, setIsName] = useState('');
+
+  const updateUser = useAppDispatch();
 
   const handleForm: SubmitHandler<FieldValues> = () => {
     createUser();
@@ -59,7 +61,7 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchBack }) => 
       setIsName(user.message);
     }
     if (user.user) {
-      dispatchName(user.user.name);
+      updateUser(toggleUser(user.user.name));
       console.log(user.token);
     }
   };

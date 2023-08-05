@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAppSelector } from '../../app/hooks';
 import './ChatMessage.styles.scss';
 import '../../App.scss';
 interface IChatMessage {
@@ -7,10 +8,10 @@ interface IChatMessage {
     comment: string;
   };
   online: string[];
-  user: string;
 }
 
-export const ChatMessage: React.FC<IChatMessage> = ({ mail, online, user }) => {
+export const ChatMessage: React.FC<IChatMessage> = ({ mail, online }) => {
+  const user = useAppSelector((state) => state.user.user);
   return (
     <div className={mail.hero === user ? 'chat-item__hero' : 'chat-item__npc'}>
       <div

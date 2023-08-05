@@ -3,17 +3,18 @@ import { useMediaQuery } from 'react-responsive';
 import { motion, Reorder, useDragControls } from 'framer-motion';
 import { UserItem } from '../UserItem/UserItem';
 import { socket } from '../../socket';
+import { useAppSelector } from '../../app/hooks';
 import './ChatUsers.styles.scss';
 
 interface IChatUsers {
   dispatchChatState: React.Dispatch<React.SetStateAction<string>>;
   chatSpeaker: string;
   online: string[];
-  user: string;
 }
 
 export const ChatUsers: React.FC<IChatUsers> = memo(
-  ({ dispatchChatState, chatSpeaker, online, user }) => {
+  ({ dispatchChatState, chatSpeaker, online }) => {
+    const user = useAppSelector((state) => state.user.user);
     const [allUsers, setAllUsers] = useState<string[]>([]);
     const [dropdown, setDropdown] = useState(false);
 

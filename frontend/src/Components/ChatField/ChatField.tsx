@@ -1,15 +1,15 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import './ChatField.styles.scss';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import { socket } from '../../socket';
 import { SelectedUser } from '../SelectedUser/SelectedUser';
+import { useAppSelector } from '../../app/hooks';
+import './ChatField.styles.scss';
 
 interface IChatField {
   storage: string;
   chatSpeaker: string;
   online: string[];
-  user: string;
 }
 
 interface IMessage {
@@ -17,7 +17,8 @@ interface IMessage {
   comment: string;
 }
 
-export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, online, user }) => {
+export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, online }) => {
+  const user = useAppSelector((state) => state.user.user);
   const [state, setState] = useState<IMessage[]>([]);
   const [chatter, setChatter] = useState('');
 
@@ -84,12 +85,7 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, onl
               {(storage || chatSpeaker) &&
                 state.map((message) => {
                   return (
-                    <ChatMessage
-                      key={state.indexOf(message)}
-                      mail={message}
-                      online={online}
-                      user={user}
-                    />
+                    <ChatMessage key={state.indexOf(message)} mail={message} online={online} />
                   );
                 })}
             </div>

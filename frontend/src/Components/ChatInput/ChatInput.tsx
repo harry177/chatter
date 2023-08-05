@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
-import './ChatInput.styles.scss';
 import { ChatButton } from '../ChatButton/ChatButton';
+import './ChatInput.styles.scss';
 
 interface IStorage {
   setStorage: React.Dispatch<React.SetStateAction<string>>;

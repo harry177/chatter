@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './Chat.styles.scss';
 import { ChatField } from '../ChatField/ChatField';
 import { ChatInput } from '../ChatInput/ChatInput';
 import { ChatUsers } from '../ChatUsers/ChatUsers';
 import { socket } from '../../socket';
+import { useAppSelector } from '../../app/hooks';
+import './Chat.styles.scss';
 
-interface IChat {
-  user: string;
-}
-
-export const Chat: React.FC<IChat> = ({ user }) => {
+export const Chat = () => {
+  const user = useAppSelector((state) => state.user.user);
   const [state, setState] = useState('');
   const [chat, setChat] = useState('');
   const [online, setOnline] = useState<string[]>([]);
@@ -100,14 +98,9 @@ export const Chat: React.FC<IChat> = ({ user }) => {
   if (!user) return null;
   return (
     <div className="chat">
-      <ChatUsers
-        dispatchChatState={handleChatState}
-        chatSpeaker={chat}
-        online={online}
-        user={user}
-      />
+      <ChatUsers dispatchChatState={handleChatState} chatSpeaker={chat} online={online} />
       <div className="right-chat__block">
-        <ChatField storage={state} chatSpeaker={chat} online={online} user={user} />
+        <ChatField storage={state} chatSpeaker={chat} online={online} />
         <ChatInput setStorage={handleStorageChange} chatSpeaker={chat} />
       </div>
     </div>

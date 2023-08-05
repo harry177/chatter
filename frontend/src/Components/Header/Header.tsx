@@ -1,18 +1,15 @@
 import React from 'react';
-import './Header.styles.scss';
 import { MainUser } from '../MainUser/MainUser';
+import { useAppSelector } from '../../app/hooks';
+import './Header.styles.scss';
 
-interface IUser {
-  user: string;
-  dispatchExit: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export const Header: React.FC<IUser> = ({ user, dispatchExit }) => {
+export const Header = () => {
+  const user = useAppSelector((state) => state.user.user);
   if (user)
     return (
       <header className="header">
         <div className="header-container">
-          <MainUser user={user} dispatchExit={dispatchExit} />
+          <MainUser />
         </div>
       </header>
     );

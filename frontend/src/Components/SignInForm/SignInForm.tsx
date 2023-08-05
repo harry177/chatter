@@ -1,18 +1,21 @@
 import React, { ChangeEvent, useState } from 'react';
-import '../SignUpForm/SignUpForm.styles.scss';
 import { FormButton } from '../FormButton/FormButton';
+import { useAppDispatch } from '../../app/hooks';
+import { toggleUser } from '../../features/slices/userSlice';
+import '../SignUpForm/SignUpForm.styles.scss';
 
 interface IProps {
-  dispatchName: React.Dispatch<React.SetStateAction<string>>;
   dispatchBack: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const SignInForm: React.FC<IProps> = ({ dispatchName, dispatchBack }) => {
+export const SignInForm: React.FC<IProps> = ({ dispatchBack }) => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
   const [isEmail, setIsEmail] = useState('');
   const [isPassword, setIsPassword] = useState('');
+
+  const updateUser = useAppDispatch();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -46,7 +49,7 @@ export const SignInForm: React.FC<IProps> = ({ dispatchName, dispatchBack }) => 
     } else if (user.message === 'Your password is incorrect') {
       setIsPassword(user.message);
     } else {
-      dispatchName(user.name);
+      updateUser(toggleUser(user.name));
     }
   };
 
