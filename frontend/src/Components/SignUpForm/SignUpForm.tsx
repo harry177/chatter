@@ -7,10 +7,10 @@ import { FormButton } from '../FormButton/FormButton';
 
 interface IProps {
   dispatchName: React.Dispatch<React.SetStateAction<string>>;
-  dispatchView: React.Dispatch<React.SetStateAction<boolean>>;
+  dispatchBack: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => {
+export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchBack }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -37,8 +37,8 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
     setConfirm(event.target.checked);
   };
 
-  const handleMove = () => {
-    dispatchView(false);
+  const handleBack = () => {
+    dispatchBack(true);
   };
 
   const createUser = async () => {
@@ -132,7 +132,7 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchName, dispatchView }) => 
       )}
       <div className="form-buttons">
         <FormButton buttonType="submit" buttonText="Submit" />
-        <FormButton buttonType="button" buttonText="Move to login" clickFunction={handleMove} />
+        <FormButton buttonType="button" buttonText="Move to login" clickFunction={handleBack} />
       </div>
     </form>
   );

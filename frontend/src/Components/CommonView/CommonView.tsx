@@ -20,11 +20,11 @@ export const CommonView: React.FC<IData> = ({ dispatchData, finalData }) => {
   return (
     <main className="central">
       <EntryLogo param={finalData} />
-      {isLogin && !finalData && (
-        <SignUpForm dispatchName={dispatchData} dispatchView={handleViewChange} />
-      )}
       {!isLogin && !finalData && (
-        <SignInForm setProps={dispatchData} dispatchBack={handleViewChange} />
+        <SignUpForm dispatchName={dispatchData} dispatchBack={handleViewChange} />
+      )}
+      {isLogin && !finalData && (
+        <SignInForm dispatchName={dispatchData} dispatchBack={handleViewChange} />
       )}
       <Chat user={finalData} />
     </main>

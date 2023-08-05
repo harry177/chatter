@@ -3,11 +3,11 @@ import '../SignUpForm/SignUpForm.styles.scss';
 import { FormButton } from '../FormButton/FormButton';
 
 interface IProps {
-  setProps: React.Dispatch<React.SetStateAction<string>>;
+  dispatchName: React.Dispatch<React.SetStateAction<string>>;
   dispatchBack: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
+export const SignInForm: React.FC<IProps> = ({ dispatchName, dispatchBack }) => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
@@ -27,7 +27,7 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
   };
 
   const handleBack = () => {
-    dispatchBack(true);
+    dispatchBack(false);
   };
 
   const checkUser = async () => {
@@ -46,7 +46,7 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
     } else if (user.message === 'Your password is incorrect') {
       setIsPassword(user.message);
     } else {
-      setProps(user.name);
+      dispatchName(user.name);
     }
   };
 
