@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import { socket } from '../../socket';
@@ -17,7 +17,7 @@ interface IMessage {
   comment: string;
 }
 
-export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, online }) => {
+export const ChatField: React.FC<IChatField> = ({ storage, chatSpeaker, online }) => {
   const user = useAppSelector((state) => state.user.user);
   const [state, setState] = useState<IMessage[]>([]);
   const [chatter, setChatter] = useState('');
@@ -94,4 +94,4 @@ export const ChatField: React.FC<IChatField> = memo(({ storage, chatSpeaker, onl
       </div>
     </div>
   );
-});
+};

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import './UserItem.style.scss';
 
 interface IUserItem {
@@ -8,7 +8,7 @@ interface IUserItem {
   chat: string;
 }
 
-export const UserItem: React.FC<IUserItem> = memo(({ userName, dispatchChat, online, chat }) => {
+export const UserItem: React.FC<IUserItem> = ({ userName, dispatchChat, online, chat }) => {
   const selectChat = () => {
     dispatchChat(userName);
   };
@@ -31,4 +31,4 @@ export const UserItem: React.FC<IUserItem> = memo(({ userName, dispatchChat, onl
       </div>
     </div>
   );
-});
+};
