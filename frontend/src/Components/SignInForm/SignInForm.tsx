@@ -56,21 +56,25 @@ export const SignInForm: React.FC<IProps> = ({ dispatchBack }) => {
   return (
     <form className="form" onSubmit={handleSubmit}>
       <label htmlFor="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        onChange={handleEmail}
-        className="form-field email-input"
-      ></input>
-      <span>{isEmail}</span>
+      <div className="form-field__elem">
+        <input
+          type="email"
+          id="email"
+          onChange={handleEmail}
+          className="form-field email-input"
+        ></input>
+        <span>{isEmail}</span>
+      </div>
       <label htmlFor="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        onChange={handlePass}
-        className="form-field password-input"
-      ></input>
-      <span>{isPassword}</span>
+      <div className="form-field__elem">
+        <input
+          type="password"
+          id="password"
+          onChange={handlePass}
+          className="form-field password-input"
+        ></input>
+        <span>{isPassword}</span>
+      </div>
       <div className="form-buttons">
         <FormButton buttonType="submit" buttonText="Submit" />
         <FormButton buttonType="button" buttonText="Move to signup" clickFunction={handleBack} />

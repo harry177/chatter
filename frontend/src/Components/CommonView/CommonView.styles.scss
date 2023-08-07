@@ -1,15 +1,19 @@
 .central {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: inherit;
-    height: inherit;
-    min-height: inherit;
-    position: relative;
-    background: linear-gradient(to top left, powderblue, pink);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: inherit;
+  height: inherit;
+  min-height: inherit;
+  position: relative;
+  background: linear-gradient(to top left, powderblue, pink);
 
-    @media (max-width: 767px) {
-        flex-direction: column;
-        justify-content: center;
-      }
+  @media (max-width: 767px) {
+    flex-direction: column;
+    justify-content: center;
+  }
+  @media (max-width: 950px) and (orientation: landscape) {
+    flex-direction: row;
+    justify-content: space-around;
+  }
 }

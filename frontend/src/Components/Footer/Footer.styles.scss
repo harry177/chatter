@@ -8,4 +8,11 @@
     border-top: 2px solid plum;
     bottom: 0px;
     position: absolute;
+
+    @media (max-width: 767px) {
+      height: 25px;
+    }
+    @media (max-width: 950px) and (orientation: landscape) {
+      height: 25px;
+    }
   }

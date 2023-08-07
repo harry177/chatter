@@ -34,7 +34,7 @@
   background-repeat: no-repeat;
   margin-left: 7px;
 
-  @media (max-width: 450px) {
+  @media (max-width: 450px), (max-width: 950px) and (orientation: landscape) {
     width: 30px;
     height: 30px;
   }
@@ -49,7 +49,7 @@
   background-repeat: no-repeat;
   margin-left: 7px;
 
-  @media (max-width: 450px) {
+  @media (max-width: 450px), (max-width: 950px) and (orientation: landscape) {
     width: 30px;
     height: 30px;
   }
@@ -67,7 +67,7 @@
   background-color: lightgreen;
   z-index: 20;
 
-  @media (max-width: 450px) {
+  @media (max-width: 450px), (max-width: 950px) and (orientation: landscape) {
     left: 23px;
   }
 }

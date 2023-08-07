@@ -47,7 +47,12 @@
   top: 50px;
   z-index: 100;
   @media (max-width: 450px) {
+    top: 30px;
     width: 220px;
+  }
+  @media (max-width: 950px) and (orientation: landscape) {
+    top: 30px;
+    height: 200px;
   }
 }
 
