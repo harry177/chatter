@@ -1,6 +1,12 @@
-.chat-message {
+@mixin flex-properties($direction, $justify, $align) {
   display: flex;
-  flex-direction: column;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+.chat-message {
+  @include flex-properties(column, null, null);
   padding-left: 7px;
   padding-right: 7px;
   max-width: 80%;
@@ -11,16 +17,14 @@
 }
 
 .chat-message__container-left {
-  display: flex;
-  align-items: center;
+  @include flex-properties(row, null, center);
   background-color: white;
   margin-left: 10px;
   border-radius: 7px;
 }
 
 .chat-message__container-right {
-  display: flex;
-  align-items: center;
+  @include flex-properties(row, null, center);
   background-color: white;
   margin-right: 10px;
   border-radius: 7px;
@@ -36,16 +40,14 @@
 }
 
 .chat-item__hero {
-  display: flex;
-  justify-content: end;
+  @include flex-properties(row, end, null);
   padding-top: 10px;
   padding-bottom: 10px;
   width: 100%;
 }
 
 .chat-item__npc {
-  display: flex;
-  justify-content: start;
+  @include flex-properties(row, start, null);
   padding-top: 10px;
   padding-bottom: 10px;
   width: 100%;

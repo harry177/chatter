@@ -1,14 +1,19 @@
+@mixin flex-properties($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
 .chat {
   width: 90%;
   height: 75%;
   border-radius: 10px;
   background-color: plum;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  @include flex-properties(row, space-around, center);
 
   @media (max-width: 767px) {
-    flex-direction: column;
+    @include flex-properties(column, space-around, center);
     height: 500px;
     margin-top: 20px;
   }
@@ -26,9 +31,7 @@
   width: 74%;
   height: 95%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-properties(column, space-between, center);
 
   @media (max-width: 767px) {
     width: 95%;

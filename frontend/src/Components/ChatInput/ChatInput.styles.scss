@@ -1,11 +1,15 @@
+@mixin input-styles($width, $height, $display, $justify-content, $align-items) {
+  width: $width;
+  height: $height;
+  display: $display;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
 .general__chat-input {
-  width: 100%;
-  height: 15%;
+  @include input-styles(100%, 15%, flex, center, center);
   background: linear-gradient(to top left, powderblue, pink);
   border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   @media (max-width: 450px) {
     height: 10%;
@@ -13,18 +17,13 @@
 }
 
 .chat-input {
-  width: 98.8%;
-  height: 90%;
+  @include input-styles(98.8%, 90%, flex, space-between, center);
   background: plum;
   border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .chat-input__field {
-  width: 80%;
-  height: 80%;
+  @include input-styles(80%, 80%, null, null, null);
   border: none;
   outline: none;
   border-radius: 10px;

@@ -1,3 +1,10 @@
+@mixin flex-properties($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
 .common-container {
   width: 20%;
   height: 95%;
@@ -5,9 +12,7 @@
 
 .common-container__mobile {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex-properties(column, null, center);
 }
 
 .users-tab {
@@ -16,9 +21,7 @@
   background: #FFF;
   border-radius: 10px;
   font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-properties(row, center, center);
 }
 
 .chat-users {
@@ -26,9 +29,7 @@
   height: 100%;
   background: linear-gradient(to top left, powderblue, pink);
   border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-properties(row, center, center);
 
   @media (max-width: 767px) {
     display: none;
@@ -41,11 +42,10 @@
   position: absolute;
   background: linear-gradient(to top left, powderblue, pink);
   border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-properties(row, center, center);
   top: 50px;
   z-index: 100;
+
   @media (max-width: 450px) {
     top: 30px;
     width: 220px;
@@ -63,20 +63,17 @@
   border-radius: 10px;
   overflow: hidden auto;
   z-index: 2;
-}
 
-.chat-users__inner::-webkit-scrollbar {
-  display: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .chat-users__inner-container {
   width: 100%;
   min-height: 100%;
   background-color: plum;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  @include flex-properties(column, flex-start, center);
   position: relative;
   z-index: 2;
 }

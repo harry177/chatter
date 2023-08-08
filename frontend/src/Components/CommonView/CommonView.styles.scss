@@ -10,7 +10,7 @@
 
   @media (max-width: 767px) {
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
   }
   @media (max-width: 950px) and (orientation: landscape) {
     flex-direction: row;

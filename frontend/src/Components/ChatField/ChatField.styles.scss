@@ -1,12 +1,17 @@
+@mixin flex-properties($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
 .general-field {
   width: 100%;
   height: 80%;
   background: linear-gradient(to top left, powderblue, pink);
   border-radius: 10px;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-properties(row, center, center);
 
   @media (max-width: 450px) {
     height: 87%;
@@ -19,6 +24,10 @@
   background: plum;
   border-radius: 10px;
   overflow: hidden auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .blank-field {
@@ -28,24 +37,15 @@
   border-radius: 10px;
   text-align: center;
   font-size: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-properties(row, center, center);
 
   @media (max-width: 767px) {
     font-size: 25px;
   }
 }
 
-.chat-field::-webkit-scrollbar {
-  display: none;
-}
-
 .chat-body {
   width: 100%;
   min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
+  @include flex-properties(column, flex-end, flex-end);
 }

@@ -12,8 +12,8 @@
   @media (max-width: 450px), (max-width: 950px) and (orientation: landscape) {
     height: 30px;
   }
-}
 
-.chat-button:hover {
+  &:hover {
     background: linear-gradient(to top left, powderblue, pink);;
+  }
 }
