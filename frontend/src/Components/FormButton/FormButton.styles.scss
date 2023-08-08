@@ -3,12 +3,13 @@
   border-radius: 5px;
   color: #000;
   background-color: white;
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.5);
   text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.form-button:hover {
+  &:hover {
     background-color: plum;
+  }
 }

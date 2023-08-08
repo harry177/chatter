@@ -96,7 +96,7 @@ export const socketServer = (server: http.Server, PORT: string | number) => {
       } catch (e) {
         console.error(e);
       }
-      // Получение списка активных комнат
+      // Getting a list of active rooms
       const activeRooms = [];
 
       for (const [room, _] of io.sockets.adapter.rooms.entries()) {
@@ -107,7 +107,7 @@ export const socketServer = (server: http.Server, PORT: string | number) => {
         }
       }
 
-      // Вывод списка активных комнат в консоль
+      // Output of the active rooms list to the console
       console.log('Active chat rooms:');
       activeRooms.forEach((room) => {
         console.log(room);
@@ -162,7 +162,7 @@ export const socketServer = (server: http.Server, PORT: string | number) => {
       io.emit('getFinalUsers', users);
       console.log('🔥: A user disconnected');
       console.log(users);
-      // Получение списка активных комнат
+      // Getting a list of active rooms
       const activeRooms = [];
 
       for (const [room, _] of io.sockets.adapter.rooms.entries()) {
@@ -173,7 +173,7 @@ export const socketServer = (server: http.Server, PORT: string | number) => {
         }
       }
 
-      // Вывод списка активных комнат в консоль
+      // Output of the active rooms list to the console
       console.log('Active chat rooms:');
       activeRooms.forEach((room) => {
         console.log(room);
