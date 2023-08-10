@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const dataSchema = new mongoose.Schema({
   name: {
+    required: true,
     type: String,
   },
   email: {
@@ -12,21 +13,15 @@ const dataSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  chats: {
-    type: [{ user: String, messages: [{ hero: String, comment: String }] }],
-  },
 });
 
 const messageSchema = new mongoose.Schema({
-  number: {
-    type: Number,
-  },
   chatters: {
     required: true,
     type: Array,
   },
   messages: {
-    type: Array,
+    type: [{ hero: String, comment: String }],
   },
 });
 

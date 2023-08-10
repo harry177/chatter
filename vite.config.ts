@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import injectHtml from 'vite-plugin-inject-html';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), injectHtml({})],
   build: {
     // generate manifest.json in outDir
     manifest: true,

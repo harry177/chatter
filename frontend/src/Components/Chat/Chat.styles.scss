@@ -1,18 +1,40 @@
+@mixin flex-properties($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
 .chat {
-    width: 80%;
-    height: 70%;
-    border-radius: 10px;
-    background-color: lightpink;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  width: 90%;
+  height: 75%;
+  border-radius: 10px;
+  background-color: plum;
+  @include flex-properties(row, space-around, center);
+
+  @media (max-width: 767px) {
+    @include flex-properties(column, space-around, center);
+    height: 500px;
+    margin-top: 20px;
+  }
+  @media (max-width: 450px) {
+    height: 80vh;
+    margin-top: 10px;
+  }
+  @media (max-width: 950px) and (orientation: landscape) {
+    height: 75vh;
+    margin-top: 10px;
+  }
 }
 
 .right-chat__block {
-    width: 74%;
-    height: 95%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+  width: 74%;
+  height: 95%;
+  display: flex;
+  @include flex-properties(column, space-between, center);
+
+  @media (max-width: 767px) {
+    width: 95%;
+    height: 90%;
+  }
 }

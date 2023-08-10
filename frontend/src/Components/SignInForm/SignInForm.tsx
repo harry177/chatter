@@ -1,17 +1,21 @@
 import React, { ChangeEvent, useState } from 'react';
-import './SignInForm.styles.scss';
+import { FormButton } from '../FormButton/FormButton';
+import { useAppDispatch } from '../../app/hooks';
+import { toggleUser } from '../../features/slices/userSlice';
+import '../SignUpForm/SignUpForm.styles.scss';
 
 interface IProps {
-  setProps: React.Dispatch<React.SetStateAction<string>>;
   dispatchBack: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
+export const SignInForm: React.FC<IProps> = ({ dispatchBack }) => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
 
   const [isEmail, setIsEmail] = useState('');
   const [isPassword, setIsPassword] = useState('');
+
+  const updateUser = useAppDispatch();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -26,7 +30,7 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
   };
 
   const handleBack = () => {
-    dispatchBack(true);
+    dispatchBack(false);
   };
 
   const checkUser = async () => {
@@ -45,35 +49,35 @@ export const SignInForm: React.FC<IProps> = ({ setProps, dispatchBack }) => {
     } else if (user.message === 'Your password is incorrect') {
       setIsPassword(user.message);
     } else {
-      setProps(user.name);
-      localStorage.setItem('user', user.name);
-      console.log(user.token);
+      updateUser(toggleUser(user.name));
     }
   };
 
   return (
     <form className="form" onSubmit={handleSubmit}>
       <label htmlFor="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        onChange={handleEmail}
-        className="form-field email-input"
-      ></input>
-      {isEmail}
+      <div className="form-field__elem">
+        <input
+          type="email"
+          id="email"
+          onChange={handleEmail}
+          className="form-field email-input"
+        ></input>
+        <span>{isEmail}</span>
+      </div>
       <label htmlFor="password">Password</label>
-      <input
-        type="text"
-        id="password"
-        onChange={handlePass}
-        className="form-field password-input"
-      ></input>
-      {isPassword}
-      <div>
-        <button type="submit" className="submit-button">
-          Submit
-        </button>
-        <button onClick={handleBack}>Move to SignUp</button>
+      <div className="form-field__elem">
+        <input
+          type="password"
+          id="password"
+          onChange={handlePass}
+          className="form-field password-input"
+        ></input>
+        <span>{isPassword}</span>
+      </div>
+      <div className="form-buttons">
+        <FormButton buttonType="submit" buttonText="Submit" />
+        <FormButton buttonType="button" buttonText="Move to signup" clickFunction={handleBack} />
       </div>
     </form>
   );

@@ -1,11 +1,9 @@
 import React from 'react';
+import { useAppSelector } from '../../app/hooks';
 import './EntryLogo.styles.scss';
 
-interface ILogo {
-  param: string;
-}
-
-export const EntryLogo: React.FC<ILogo> = ({ param }) => {
-  if (param) return null;
+export const EntryLogo = () => {
+  const user = useAppSelector((state) => state.user.user);
+  if (user) return null;
   return <div className="entry-logo">Chatter</div>;
 };

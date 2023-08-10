@@ -11,6 +11,26 @@
   -webkit-text-fill-color: transparent;
   animation: textclip 2s linear infinite;
   display: inline-block;
+
+  @media (max-width: 1023px) {
+    font-size: 90px;
+  }
+  @media (max-width: 767px) {
+    margin-top: 100px;
+  }
+  @media (max-width: 660px) {
+    margin-bottom: 50px;
+  }
+  @media (max-width: 450px) {
+    margin-top: 80px;
+    font-size: 70px;
+  }
+  @media (max-width: 950px) and (orientation: landscape) {
+    margin-top: 0;
+  }
+  @media (max-width: 950px) and (max-height: 400px) and (orientation: landscape) {
+    font-size: 70px;
+  }
 }
 
 @keyframes textclip {

@@ -1,12 +1,13 @@
 {
   "name": "chatter",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "engines": {
     "node": "18.x"
   },
   "scripts": {
     "start": "node ./backend/dist/server.js",
+    "dev": "npm i && cd frontend && npm run build && cd .. && npm run start",
     "postinstall": "tsc",
     "heroku-postbuild": "cd frontend && npm install && npm run build"
   },
@@ -50,7 +51,8 @@
     "lint-staged": "^13.2.1",
     "prettier": "^2.8.8",
     "typescript": "^5.0.2",
-    "vite": "^4.3.2"
+    "vite": "^4.3.2",
+    "vite-plugin-inject-html": "^1.0.5"
   },
   "husky": {
     "hooks": {
