@@ -28,7 +28,7 @@ export const Chat = () => {
 
   useEffect(() => {
     if (user) {
-      console.log('User active!');
+      //console.log('User active!');
       socket.auth = { user };
       socket.connect();
 
@@ -37,7 +37,6 @@ export const Chat = () => {
       });
 
       socket.on('getUsers', (users) => {
-        console.log(users);
         if (
           users.length !== onlineRef.current.length ||
           users.every((value: string, index: number) => value !== onlineRef.current[index])
@@ -57,7 +56,7 @@ export const Chat = () => {
         socket.off('getUsers');
       };
     } else {
-      console.log('No user');
+      //console.log('No user');
       setState('');
       setChat('');
     }
@@ -72,7 +71,6 @@ export const Chat = () => {
   useEffect(() => {
     socket.on('getFinalUsers', (users) => {
       if (user) {
-        console.log(users);
         socket.auth = { user };
         if (
           users.length !== onlineRef.current.length ||
@@ -89,11 +87,6 @@ export const Chat = () => {
       socket.off('newReconnect');
     };
   }, [user]);
-
-  console.log(user);
-  console.log(online);
-  console.log(chat);
-  console.log(state);
 
   if (!user) return null;
   return (

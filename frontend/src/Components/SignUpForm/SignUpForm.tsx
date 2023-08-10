@@ -63,7 +63,6 @@ export const SignUpForm: React.FC<IProps> = ({ dispatchBack }) => {
     }
     if (user.user) {
       updateUser(toggleUser(user.user.name));
-      console.log(user.token);
     }
   };
 

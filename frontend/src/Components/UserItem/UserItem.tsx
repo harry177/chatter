@@ -13,7 +13,6 @@ export const UserItem: React.FC<IUserItem> = ({ userName, dispatchChat, online, 
     dispatchChat(userName);
   };
 
-  console.log(userName);
   sessionStorage.setItem('chat', chat);
 
   return (

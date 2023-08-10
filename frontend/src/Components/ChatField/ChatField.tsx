@@ -68,8 +68,6 @@ export const ChatField: React.FC<IChatField> = ({ storage, chatSpeaker, online }
     moveToBottomSmoothly();
   }, [state]);
 
-  console.log(user);
-
   return (
     <div className="general-field">
       <div className={chatSpeaker ? 'chat-field' : 'blank-field'}>

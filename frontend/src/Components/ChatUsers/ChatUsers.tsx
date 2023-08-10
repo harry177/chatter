@@ -39,8 +39,6 @@ export const ChatUsers: React.FC<IChatUsers> = ({ dispatchChatState, chatSpeaker
     };
   }, [allUsers, user, online]);
 
-  console.log(user);
-
   const controls = useDragControls();
 
   return (
