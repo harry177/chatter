@@ -18,7 +18,7 @@ The application is optimized for screens of different devices and sizes, includi
 
 The project was developed using the MERN stack. More:
 
-- **Frontend:** HTML, SCSS, TypeScript, React, Bootstrap
+- **Frontend:** HTML, SCSS, TypeScript, React, Bootstrap, Redux, react-hook-form
 - **Backend:** Node.js, Express.js
 - **Security:** JWT, Bcrypt
 - **Bundler:** Vite
