@@ -36,7 +36,7 @@ $anon-image: './assets/anon-image.png';
   background-repeat: no-repeat;
   margin-left: 7px;
 
-  @media (max-width: 450px), (max-width: 950px) and (orientation: landscape) {
+  @media (max-width: 767px), (max-width: 767px) and (orientation: landscape) {
     width: $width - 10;
     height: $height - 10;
   }
@@ -61,7 +61,7 @@ $anon-image: './assets/anon-image.png';
     background-color: lightgreen;
     z-index: 20;
 
-    @media (max-width: 450px), (max-width: 950px) and (orientation: landscape) {
+    @media (max-width: 767px), (max-width: 767px) and (orientation: landscape) {
       left: 23px;
     }
   }

@@ -13,9 +13,6 @@ const dataSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  chats: {
-    type: [{ user: String, messages: [{ hero: String, comment: String }] }],
-  },
 });
 
 const messageSchema = new mongoose.Schema({

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { ChatButton } from '../ChatButton/ChatButton';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { toggleUser } from '../../features/slices/userSlice';
@@ -8,6 +9,8 @@ import '../../App.scss';
 export const MainUser = () => {
   const user = useAppSelector((state) => state.user.user);
   const updateUser = useAppDispatch();
+
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
   return (
     <div className="main-user">
@@ -19,7 +22,7 @@ export const MainUser = () => {
         buttonType="button"
         buttonText="Exit"
         clickFunction={() => updateUser(toggleUser(''))}
-        style={'30px'}
+        style={isTabletOrMobile ? '15px' : '10px'}
       />
     </div>
   );

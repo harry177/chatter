@@ -11,14 +11,14 @@
   font-size: 30px;
   z-index: 20;
 
-  @media (max-width: 450px), (max-width: 950px) and (orientation: landscape) {
+  @media (max-width: 767px), (max-width: 767px) and (orientation: landscape) {
     height: 40px;
     font-size: 20px;
   }
 }
 
 .header-container {
-  width: 80%;
+  width: 83%;
   height: 100%;
   display: flex;
   justify-content: end;

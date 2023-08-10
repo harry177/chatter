@@ -17,17 +17,16 @@
 }
 
 .chat-input {
-  @include input-styles(98.8%, 90%, flex, space-between, center);
+  @include input-styles(98.8%, 90%, flex, space-around, center);
   background: plum;
   border-radius: 10px;
 }
 
 .chat-input__field {
-  @include input-styles(80%, 80%, null, null, null);
+  @include input-styles(85%, 80%, null, null, null);
   border: none;
   outline: none;
   border-radius: 10px;
   background-color: plum;
   font-size: 16px;
-  padding-left: 10px;
 }
